@@ -10,6 +10,8 @@ function demarrer() {
 
     effacerCanevas(objgl); 
     dessiner(objgl, objProgShaders, objScene3D);
+    
+    parseLevel();
 }
 
 function initScene3D(objgl) {
