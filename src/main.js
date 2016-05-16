@@ -17,6 +17,8 @@ function demarrer() {
    // for(var i = 0; i < walls.length; i++) {
     //    console.log(walls[i])
 //    }
+
+    cameraLoop();
 }
 
 function initScene3D(objgl) {
