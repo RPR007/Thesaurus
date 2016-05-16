@@ -5,13 +5,18 @@ var objScene3D = null;
 function demarrer() {
     var objCanvas = document.getElementById('monCanvas');
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
-    //   objProgShaders = initShaders(objgl);
-    objScene3D = initScene3D(objgl); // Créer la scène
+   // objProgShaders = initShaders(objgl);
+    //objScene3D = initScene3D(objgl); // Créer la scène
 
     effacerCanevas(objgl); 
     dessiner(objgl, objProgShaders, objScene3D);
     
-    parseLevel();
+    var level = parseLevel(level);
+    var walls = level.wall.edges()
+    
+    for(var i = 0; i < walls.length; i++) {
+        console.log(walls[i])
+    }
 }
 
 function initScene3D(objgl) {

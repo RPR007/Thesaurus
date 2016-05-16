@@ -1,0 +1,1 @@
+var wall_height = 100;

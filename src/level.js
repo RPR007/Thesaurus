@@ -29,30 +29,12 @@ var level = [
 [0,1,1,0,1,0,1,1,1,0,1,1,0,1,1,0,1,1,1,0,1,0,1,1,0],
 [0,1,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,1,0],
 [0,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ];
 
-// Mettre le niveau en coordonée
+// Mettre le niveau en graphe de coordonée
 function parseLevel() {
-   parselevel = new Array()
-   
-   for(var i = 0; i < level.length; i++)
-     parselevel[i] = groupHorizontal(level[i])
+   return { wall : groupBy(level,1)
+           ,path : groupBy(level,0) }
 }
 
-// regroupement à l'horizontale
-function groupHorizontal(tab) {
-    var newTab = new Array();
-    
-    for(var i = 0; i < tab.length; i++) {
-       if(tab[i]) {
-           newTab[newTab.length] = new Object();
-           newTab[newTab.length-1].x = i
-           for(; tab[i] && i < tab.length;i++);
-           newTab[newTab.length-1].length = i-newTab[newTab.length-1].x
-           
-       }
-    }
-    
-    return newTab
-}
