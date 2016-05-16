@@ -1,6 +1,8 @@
 var objgl = null;
 var objProgShaders = null;
 var objScene3D = null;
+
+var speedMovement = 0.25;   // Change la vitesse des mouvements
   
 function demarrer() {
     var objCanvas = document.getElementById('monCanvas');

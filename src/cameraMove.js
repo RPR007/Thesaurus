@@ -3,6 +3,9 @@ var keyState = [];
 function keyIsPressed() {
 	console.log('Key Code (pressed) : ' + event.keyCode);
 	keyState[event.keyCode] = true;
+
+    var camera = objScene3D.camera;
+	console.log(getCibleCameraX(camera));
 }
 
 function keyIsReleased() {
@@ -24,12 +27,15 @@ function mouseLook() {
 
 function cameraLoop() {
     var camera = objScene3D.camera;
+    var binMovement = false;
 	// Regarder à gauche et à droite
-	if (keyState[37] || keyState[39]) { 
+	if (keyState[37] || keyState[39]) {
+		binMovement = true;
+
         // 37:  Flèche-à-gauche; 39:Flèche-à-droite
         var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
         var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
-        var intDirection = (keyState[37]) ? -1 : 1;
+        var intDirection = (keyState[37]) ? -speedMovement : speedMovement;
         var fltAngle = intDirection * Math.PI / 90; // Tourner 2 degrés
         var fltXPrime = fltX * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
         var fltZPrime = fltX * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
@@ -39,11 +45,13 @@ function cameraLoop() {
 
     // Avancer ou reculer
     if (keyState[38] || keyState[40]) {
+    	binMovement = true
+
 	    // 38:  Flèche-en-haut; 40:Flèche-en-bas
 	    var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
 	    var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
 	    var fltRayon = Math.sqrt(fltX * fltX + fltZ * fltZ);
-	    var intDirection = (keyState[38]) ? 1 : -1;
+	    var intDirection = (keyState[38]) ? speedMovement : -speedMovement;
 
 	    var fltXPrime = intDirection * 0.2 * Math.cos(Math.acos(fltX / fltRayon));
 	    var fltZPrime = intDirection * 0.2 * Math.sin(Math.asin(fltZ / fltRayon));
@@ -52,6 +60,11 @@ function cameraLoop() {
 	    setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
 	    setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
 	    setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+    }
+
+    if (binMovement) {
+    	effacerCanevas(objgl);
+        dessiner(objgl, objProgShaders, objScene3D);
     }
 
     setTimeout(cameraLoop, 10);
