@@ -8,12 +8,12 @@ var havePointerLock = null;
 */
 
 function keyIsPressed() {
-	console.log('Key Code (pressed) : ' + event.keyCode);
+//	console.log('Key Code (pressed) : ' + event.keyCode);
 	keyState[event.keyCode] = true;
 }
 
 function keyIsReleased() {
-	console.log('Key Code (released) : ' + event.keyCode);
+//	console.log('Key Code (released) : ' + event.keyCode);
 	keyState[event.keyCode] = false;
 }
 
@@ -93,7 +93,7 @@ function cameraLoop() {
 	    var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltX / fltRayon));
 	    var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltZ / fltRayon));
 
-	    console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
+	    //console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
 
 	    setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
 	    setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
