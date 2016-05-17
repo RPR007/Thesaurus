@@ -1,11 +1,13 @@
 var objgl = null;
 var objProgShaders = null;
 var objScene3D = null;
+var objCanvas = null;
 
-var speedMovement = 0.25;   // Change la vitesse des mouvements
+var speedWalk = 0.3;   // Change la vitesse des mouvements
+var speedCamera = 0.5;  // Change la vitesse de la vue (regarder à droite ou à gauche)
   
 function demarrer() {
-    var objCanvas = document.getElementById('monCanvas');
+    objCanvas = document.getElementById('monCanvas');
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
