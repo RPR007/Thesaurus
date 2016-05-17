@@ -5,6 +5,7 @@ var objCanvas = null;
 
 var speedWalk = 0.3;   // Change la vitesse des mouvements
 var speedCamera = 0.5;  // Change la vitesse de la vue (regarder à droite ou à gauche)
+
   
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
@@ -12,21 +13,17 @@ function demarrer() {
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
 
-    effacerCanevas(objgl); 
-    dessiner(objgl, objProgShaders, objScene3D);
+   // effacerCanevas(objgl); 
+   // dessiner(objgl, objProgShaders, objScene3D);
     
     var level = parseLevel(level);
     var walls = level.wall.edges()
-    
-   // for(var i = 0; i < walls.length; i++) {
-    //    console.log(walls[i])
-//    }
 
     cameraLoop();
 }
 
 function initScene3D(objgl) {
-    var objScene3D = new Object();
+   var objScene3D = new Object();
     var tabObjets3D = new Array();
     
     // Mettre les textures dans la scène
@@ -52,6 +49,16 @@ function initScene3D(objgl) {
 
     // Mettre la caméra sur la scène
     objScene3D.camera = camera;
+	
+	//Le plancher
+	var plancher = creerPlancher(objgl);
+	plancher.vertex = creerVertexPlancher(objgl, plancher.fltLargeur, plancher.fltProfondeur);
+    plancher.couleurs = creerCouleursPlancher(objgl, [1, 1, 1, 1]);
+	plancher.texels = creerTexelsPlancher(objgl, plancher.fltLargeur, plancher.fltProfondeur);
+	plancher.maillage = creerMaillagePlancher(objgl);
+	
+	// Mettre le plancher sur la scène
+	objScene3D.plancher = plancher;
 			
     return objScene3D;
 }
@@ -132,7 +139,6 @@ function dessiner(objgl, objProgShaders, objScene3D) {
 			     
 			// Activer la texture
             objgl.activeTexture(objgl.TEXTURE0 + texels.intNoTexture);
-            console.log(objScene3D.textures)
             objgl.bindTexture(objgl.TEXTURE_2D, objScene3D.textures[texels.intNoTexture]);
                   
             // Relier les texels aux shaders
