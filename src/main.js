@@ -12,15 +12,11 @@ function demarrer() {
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
 
-    effacerCanevas(objgl); 
-    dessiner(objgl, objProgShaders, objScene3D);
+   // effacerCanevas(objgl); 
+   // dessiner(objgl, objProgShaders, objScene3D);
     
     var level = parseLevel(level);
     var walls = level.wall.edges()
-    
-   // for(var i = 0; i < walls.length; i++) {
-    //    console.log(walls[i])
-//    }
 
     cameraLoop();
 }
@@ -132,7 +128,6 @@ function dessiner(objgl, objProgShaders, objScene3D) {
 			     
 			// Activer la texture
             objgl.activeTexture(objgl.TEXTURE0 + texels.intNoTexture);
-            console.log(objScene3D.textures)
             objgl.bindTexture(objgl.TEXTURE_2D, objScene3D.textures[texels.intNoTexture]);
                   
             // Relier les texels aux shaders
