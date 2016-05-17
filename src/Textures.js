@@ -5,11 +5,8 @@ var TEX_METAL = 1;
 var TEX_PLANCHER = 2;
 
 function creerTextures(objgl) {
-<<<<<<< HEAD
+
     var tabImages = ['img/Transparent.gif', 'img/metal.jpg', 'img/plancher.jpg'];
-=======
-    var tabImages = ['img/Transparent.gif', 'img/metal.jpg'];
->>>>>>> origin/master
     var tabloadImages = [0,0]
     
 	var tabObjTextures = new Array();
