@@ -18,7 +18,7 @@ function creerTextures(objgl) {
         var objTexture = objgl.createTexture();
         objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
         objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, 1, 1, 0, objgl.RGBA, objgl.UNSIGNED_BYTE,new Uint8Array([0, 0, 0, 0])); // red
-          
+        //Etienne: A-t'on vraiment besoin de mettre les images dans une onload = function()?  Devrait fonctionner sinon.
         objImage.onload = function() {    
 		   // La s�lectionner
 		   objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
