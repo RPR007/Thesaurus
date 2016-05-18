@@ -31,8 +31,6 @@ function creerTextures(objgl) {
 		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_S, objgl.CLAMP_TO_EDGE);
 		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.CLAMP_TO_EDGE);
 		    
-		    effacerCanevas(objgl);
-	        dessiner(objgl, objProgShaders, objScene3D);
         }
         
 	 	// Ins�rer cette texture dans un tableau de textures

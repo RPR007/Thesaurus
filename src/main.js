@@ -12,8 +12,12 @@ function demarrer() {
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
 
-   // effacerCanevas(objgl); 
-   // dessiner(objgl, objProgShaders, objScene3D);
+    // Attendre que les textures se charges
+    setTimeout(function() {
+         effacerCanevas(objgl); 
+         dessiner(objgl, objProgShaders, objScene3D);
+    }, 200);
+   
     
     var level = parseLevel(level);
     var walls = level.wall.edges()
