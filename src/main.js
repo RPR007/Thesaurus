@@ -5,6 +5,7 @@ var objCanvas = null;
 
 var speedWalk = 0.3;   // Change la vitesse des mouvements
 var speedCamera = 0.5;  // Change la vitesse de la vue (regarder à droite ou à gauche)
+
   
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
@@ -20,13 +21,17 @@ function demarrer() {
    
     
     var level = parseLevel(level);
-    var walls = level.wall.edges()
+    var walls = level.wall.edges();
 
+    // Dessiner avant la loop
+    dessiner(objgl, objProgShaders, objScene3D);
+
+    // Pour des raisons d'optimisation, la loop ne dessine quand le joueur bouge
     cameraLoop();
 }
 
 function initScene3D(objgl) {
-    var objScene3D = new Object();
+   var objScene3D = new Object();
     var tabObjets3D = new Array();
     
     // Mettre les textures dans la scène
@@ -52,6 +57,16 @@ function initScene3D(objgl) {
 
     // Mettre la caméra sur la scène
     objScene3D.camera = camera;
+	
+	//Le plancher
+	var plancher = creerPlancher(objgl);
+	plancher.vertex = creerVertexPlancher(objgl, plancher.fltLargeur, plancher.fltProfondeur);
+    plancher.couleurs = creerCouleursPlancher(objgl, [1, 1, 1, 1]);
+	plancher.texels = creerTexelsPlancher(objgl, plancher.fltLargeur, plancher.fltProfondeur);
+	plancher.maillage = creerMaillagePlancher(objgl);
+	
+	// Mettre le plancher sur la scène
+	objScene3D.plancher = plancher;
 			
     return objScene3D;
 }
