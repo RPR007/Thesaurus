@@ -6,10 +6,17 @@ var objCanvas = null;
 var speedWalk = 0.3;   // Change la vitesse des mouvements
 var speedCamera = 0.5;  // Change la vitesse de la vue (regarder à droite ou à gauche)
 
-  
+var level = null
+var walls = null
+
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
+    
+    console.log(levels[0].length)
+    level = parseLevel(levels[0]);
+    walls = level.wall.edges();
+    
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
 
@@ -20,8 +27,6 @@ function demarrer() {
     }, 200);
    
     
-    var level = parseLevel(level);
-    var walls = level.wall.edges();
 
     // Dessiner avant la loop
     dessiner(objgl, objProgShaders, objScene3D);

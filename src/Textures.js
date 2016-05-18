@@ -43,8 +43,6 @@ function creerTextures(objgl) {
 	 	// Ins�rer cette texture dans un tableau de textures
 		tabObjTextures.push(objTexture);
 	}
-
-   // while(!tabloadImages[0] && !tabloadImages[1]);
     
 	return tabObjTextures;
 }

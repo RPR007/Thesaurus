@@ -1,25 +1,27 @@
 function creerMur(objgl) {
         var objCube = objgl.createBuffer();
 
-        tabVertex = [
-             // Face avant (Z=1)
-			  0.0, 0.0, 1.0,   // 0: Centre
-              1.0, 1.0, 1.0,   // 1: Coin haut droit
-              1.0, -1.0, 1.0,  // 2: Coin bas droit
-             -1.0, -1.0, 1.0,  // 3: Coin bas gauche
-              -1.0, 1.0, 1.0,  // 4: Coin haut gauche
-
-              // Face arrière (Z=-1) 
-              0.0, 0.0, -1.0,   // 5: Centre
-              1.0, 1.0, -1.0,   // 6: Coin haut droit
-              1.0, -1.0, -1.0,  // 7: Coin bas droit
-             -1.0, -1.0, -1.0,  // 8: Coin bas gauche
-              -1.0, 1.0, -1.0  // 9: Coin haut gauche
-        ];
+        var tabVertex = new Array()
+        
+        walls.forEach(function(element, index, array) {
+            var node1 = JSON.parse(element.v)
+            var node2 = JSON.parse(element.w)
+            
+            tabVertex.push(node1.x)
+            tabVertex.push(-1)
+            tabVertex.push(node1.y)
+            
+            tabVertex.push(node2.x)
+            tabVertex.push(-1)
+            tabVertex.push(node2.y)
+            
+        })
+   
+        console.log(tabVertex.length/3)
 
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabVertex), objgl.STATIC_DRAW);
-        objCube.intNbElems = 10; objCube.intTailleElem = 3;
+        objCube.intNbElems = 184 ; objCube.intTailleElem = 3;
 
         return objCube;
     }
@@ -27,20 +29,14 @@ function creerMur(objgl) {
     function creerCouleursMur(objgl) {
         var objCouleursCube = objgl.createBuffer();
 
-        // Face avant
-        tabCouleurs = [1.0, 1.0, 1.0, 1.0]; // Blanc 
-        for (var i = 1; i <= 4; i++)
-            tabCouleurs = tabCouleurs.concat([1.0, 0.0, 0.0, 1.0]); // Rouge
-
-        // Face arrière
-        tabCouleurs = tabCouleurs.concat([1.0, 1.0, 1.0, 1.0]); // Blanc 
-        for (var i = 1; i <= 4; i++)
-            tabCouleurs = tabCouleurs.concat([0.0, 1.0, 0.0, 1.0]); // Vert
-
+        tabCouleurs = []
+        for(var i = 0; i< 184;i++)
+            tabCouleurs = tabCouleurs.concat([1.0, 1.0, 1.0, 1.0]);
+        
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabCouleurs), objgl.STATIC_DRAW);
 
-        objCouleursCube.intNbElems = 10; objCouleursCube.intTailleElem = 4;
+        objCouleursCube.intNbElems = 184; objCouleursCube.intTailleElem = 4;
 
         return objCouleursCube;
     }
@@ -49,26 +45,15 @@ function creerMur(objgl) {
     function creerTexelsMur(objgl) {
         var objTexelsCube = objgl.createBuffer();
 
-        tabTexels = [  // Texels de la face avant
-                          0.5, 0.5,  // 0: Centre
-                          1.0, 0.0,  // 1: Coin haut droit
-                          1.0, 1.0,  // 2: Coin bas droit
-                          0.0, 1.0,  // 3: Coin bas gauche
-                          0.0, 0.0,  // 4: Coin haut gauche
-
-                          // Texels de la face arrière
-                          0.5, 0.5,   // 5: Centre
-                          0.0, 0.0,   // 6: Coin haut droit
-                          0.0, 1.0,   // 7: Coin bas droit
-                          1.0, 1.0,   // 8: Coin bas gauche
-                          1.0, 0.0    // 9: Coin haut gauche
-        ];
-
+        tabTexels = []
+        for(var i = 0; i< 184;i++)
+            tabTexels = tabCouleurs.concat([0.0, 0.0]);
+            
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabTexels), objgl.STATIC_DRAW);
 
         // 10 texels
-        objTexelsCube.intNbElems = 10; objTexelsCube.intTailleElem = 2;
+        objTexelsCube.intNbElems = 184; objTexelsCube.intTailleElem = 2;
         // 100% de la texture est utilisée
         objTexelsCube.intNoTexture = TEX_METAL; objTexelsCube.pcCouleurTexel = 1.00;
 
@@ -78,32 +63,19 @@ function creerMur(objgl) {
     // Le maillage 
     function creerMaillageMur(objgl) {
         var objMaillageCube = objgl.createBuffer();
+        
         // Le maillage                        
-        tabMaillageCube =
-            [ // Les 4 triangles de la face avant
-             0, 1, 2,
-             0, 2, 3,
-             0, 3, 4,
-             0, 4, 1,
-             // Les 4 triangles de la face arrière
-             5, 6, 7,
-             5, 7, 8,
-             5, 8, 9,
-             5, 9, 6,
-             // Les 4 droites 
-             1, 6,
-             2, 7,
-             3, 8,
-             4, 9
-            ];
-
+        tabMaillageCube = []
+        for(var i = 0; i< 184;i++)
+            tabMaillageCube = tabMaillageCube.concat([i]);
+            
         objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, objMaillageCube);
         objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabMaillageCube), objgl.STATIC_DRAW);
 
         // Le nombre de vertex pour les triangles
-        objMaillageCube.intNbElemsTriangles = 24;
+        objMaillageCube.intNbElemsTriangles = 0;
         // Le nombre de vertex pour les droites
-        objMaillageCube.intNbElemsDroites = 8;
+        objMaillageCube.intNbElemsDroites = 184;
 
         return objMaillageCube;
     }
