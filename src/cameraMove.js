@@ -61,7 +61,6 @@ function test(e) {
 
 	// Regarder à gauche et à droite
     var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
-    console.log(fltX);
     var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
     var intDirection = e.movementX;
     var fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
@@ -71,7 +70,9 @@ function test(e) {
     setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
 
     var fltY = getCibleCameraY(camera) - getPositionCameraY(camera);
+    console.log('fltY:'+fltY);
     fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+    console.log('fltZ:'+fltZ);
     intDirection = e.movementY;
     fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
     var fltYPrime = fltY * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);

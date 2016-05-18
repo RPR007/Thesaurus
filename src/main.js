@@ -27,8 +27,6 @@ function demarrer() {
          dessiner(objgl, objProgShaders, objScene3D);
     }, 200);
    
-    
-
     // Dessiner avant la loop
     dessiner(objgl, objProgShaders, objScene3D);
 
