@@ -1,4 +1,5 @@
 function groupBy(array, val) {
+    console.log(array.length)
     var graphHorizontal = groupHorizontalBy(array, val)
     var edgeHorizontal = graphHorizontal.walls.edges();
     var nodesHorizontal = graphHorizontal.nodes.nodes();
@@ -68,7 +69,7 @@ function groupVerticalBy(array, val) {
     var graph = new graphlib.Graph();
     var graph2 = new graphlib.Graph();
     
-    for(var i = 0; i < level[0].length; i++) {
+    for(var i = 0; i < array[0].length; i++) {
         for(var j = 0; j < array.length; j++) {
             if(array[j][i] === val) {
                 if(j+1 < array.length && array[j+1][i] === val) {
