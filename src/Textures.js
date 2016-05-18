@@ -7,7 +7,7 @@ var TEX_PLANCHER = 2;
 function creerTextures(objgl) {
 
     // il faut ajouter l'image plancher.jpg sur github 
-  //  var tabImages = ['img/Transparent.gif', 'img/metal.jpg', 'img/plancher.jpg'];
+    //var tabImages = ['img/Transparent.gif', 'img/metal.jpg', 'img/plancher.jpg'];
     var tabImages = ['img/Transparent.gif', 'img/metal.jpg'];
     var tabloadImages = [0,0]
     
