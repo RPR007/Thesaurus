@@ -1,5 +1,6 @@
 var keyState = [];
 var havePointerLock = null;
+var binMouseLock = false;
 
 /*
 * Pour bouger utilisez soit les flêches (avancer, reculer, regarder à droite et à gauche)
@@ -8,7 +9,7 @@ var havePointerLock = null;
 */
 
 function keyIsPressed() {
-//	console.log('Key Code (pressed) : ' + event.keyCode);
+	console.log('Key Code (pressed) : ' + event.keyCode);
 	keyState[event.keyCode] = true;
 }
 
@@ -40,19 +41,12 @@ function lockPointer() {
 	// Demander au naviguateur de bloquer la souris
 	objCanvas.requestPointerLock();
 
-	// Hook mouse move events
-	if (document.pointerLockElement === objCanvas ||
-		document.mozPointerLockElement === objCanvas ||
-		document.webkitPointerLockElement === objCanvas) {
-		// Pointer was just locked
-		// Enable the mousemove listener
+	// Pointer was just locked
+	// Enable the mousemove listener
+	if (!binMouseLock) {
 		objCanvas.addEventListener("mousemove", test, false);
 		console.log('mouse locked');
-	} else {
-		// Pointer was just unlocked
-		// Disable the mousemove listener
-		objCanvas.removeEventListener("mousemove", test, false);
-		console.log('mouse unlocked');
+		binMouseLock = true;
 	}
 }
 
@@ -114,13 +108,25 @@ function cameraLoop() {
 	    var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltZ / fltRayon));
 	    var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltX / -fltRayon));
 
-	    console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
+	    //console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
 
 	    setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
 	    setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
 	    setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
 	    setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
     }
+
+    if (!(document.pointerLockElement === objCanvas) &&
+		!(document.mozPointerLockElement === objCanvas) &&
+		!(document.webkitPointerLockElement === objCanvas) &&
+		binMouseLock) {
+		// Pointer was just unlocked
+		// Disable the mousemove listener
+		objCanvas.removeEventListener("mousemove", test, false);
+		console.log('mouse unlocked');
+
+		binMouseLock = false;
+	}
 
     // Permet de ne pas réafficher si il n'y en a pas besoins
     if (binMovement) {
