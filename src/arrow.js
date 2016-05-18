@@ -36,7 +36,7 @@ function creerCouleursVertexFleche(objgl) {
     var objCouleurs = objgl.createBuffer();
     tabCouleurs = new Array();
 
-    for (var i = 0; i < objVertex.intNbElems; i++) {
+    for (var i = 0; i < 14; i++) {
         if (i == 0 || i == 1)
             tabCouleurs = tabCouleurs.concat([1.0, 1.0, 1.0, 1.0]); // Blanc
         else
