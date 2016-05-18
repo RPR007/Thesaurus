@@ -11,6 +11,7 @@ function collision(x,  y) {
 
 function collisionWall(x,y) {
     var collision = object.Nothing
+    var incertidumbre = 0.05
     
     for(i = 0; collision == object.Nothing && i < walls.length; i++) {
         var node1 = JSON.parse(walls[i].v)
@@ -18,17 +19,17 @@ function collisionWall(x,y) {
         
         // Horizontale
         if(node1.y == node2.y) {
-            if(x >= node1.x 
-              && x <= node2.x
-              && y >= node1.y
-              && y <= node1.y+1)
+            if(x >= node1.x-incertidumbre
+              && x <= node2.x+incertidumbre
+              && y >= node1.y-incertidumbre
+              && y <= node1.y+1+incertidumbre)
                 collision = object.Wall
            // Vertical
         } else {
-            if(x >= node1.x
-              && x <= node1.x+1
-              && y >= node1.y
-              && y <= node2.y)
+            if(x >= node1.x-incertidumbre
+              && x <= node1.x+1+incertidumbre
+              && y >= node1.y-incertidumbre
+              && y <= node2.y+incertidumbre)
                 collision = object.Wall
         }
     }
