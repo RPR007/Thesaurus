@@ -45,11 +45,19 @@
 	<script type="text/javascript" src="src/level.js"></script>
 	<script type="text/javascript" src="src/main.js"></script>
 	<script type="text/javascript" src="src/floor.js"></script>
+	<script type="text/javascript">
+		function events() {
+			var canv = document.getElementById('monCanvas');
+			canv.addEventListener('keydown', keyIsPressed, false);
+			canv.addEventListener('keyup', keyIsReleased, false);
+			canv.addEventListener('click', lockPointer, false);
+		}
+	</script>
 </head>
 
-<body onload="demarrer();">
+<body onload="events();demarrer();">
 
-	<canvas id="monCanvas" tabIndex="1" onkeydown="keyIsPressed()"  onkeyup="keyIsReleased()" onclick="lockPointer()" width="1280" height="720">
+	<canvas id="monCanvas" tabIndex="1" width="1280" height="720">
 		Votre navigateur ne supporte pas la balise canvas
 	</canvas>
 

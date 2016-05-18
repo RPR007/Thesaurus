@@ -1,6 +1,6 @@
 var keyState = [];
 var havePointerLock = null;
-var binMouseLock = false;
+//var binMouseLock = false;
 
 /*
 * Pour bouger utilisez soit les flêches (avancer, reculer, regarder à droite et à gauche)
@@ -8,29 +8,17 @@ var binMouseLock = false;
 * utilisez WASD pour vous déplacer et la souris pour regarder
 */
 
-function keyIsPressed() {
-	console.log('Key Code (pressed) : ' + event.keyCode);
-	keyState[event.keyCode] = true;
+function keyIsPressed(e) {
+//	console.log('Key Code (pressed) : ' + e.keyCode);
+	keyState[e.keyCode] = true;
 }
 
-function keyIsReleased() {
+function keyIsReleased(e) {
 //	console.log('Key Code (released) : ' + event.keyCode);
-	keyState[event.keyCode] = false;
+	keyState[e.keyCode] = false;
 }
 
-function mouseLook() {
-	var correctionY = 0;
-	var correctionX = 0;
-
-	if (document.body.clientHeight>720)
-		correctionY = (document.body.clientHeight-720)/2;
-
-	if (document.body.clientWidth>1280)
-		correctionX= (document.body.clientWidth-1280)/2;
-	//console.log('Position souris : x='+ (event.clientX-correctionX) +'; y='+ (event.clientY-correctionY));
-}
-
-function lockPointer() {
+function lockPointer(e) {
 	havePointerLock = 'pointerLockElement' in document ||
     				  	'mozPointerLockElement' in document ||
     					'webkitPointerLockElement' in document;
@@ -41,17 +29,59 @@ function lockPointer() {
 	// Demander au naviguateur de bloquer la souris
 	objCanvas.requestPointerLock();
 
-	// Pointer was just locked
-	// Enable the mousemove listener
-	if (!binMouseLock) {
-		objCanvas.addEventListener("mousemove", test, false);
-		console.log('mouse locked');
-		binMouseLock = true;
+	/*console.log('onpointerlockchange' in document);
+	console.log('onmozpointerlockchange' in document);
+	console.log('onwebkitpointerlockchange' in document);*/
+
+	if ('onpointerlockchange' in document) {
+	  	document.addEventListener('pointerlockchange', lockChange, false);
+	} else if ('onmozpointerlockchange' in document) {
+	  	document.addEventListener('mozpointerlockchange', lockChange, false);
+	} else if ('onwebkitpointerlockchange' in document) {
+		document.addEventListener('webkitpointerlockchange', lockChange, false);
 	}
 }
 
+function lockChange(e) {
+	if(document.pointerLockElement === objCanvas ||
+	   document.mozPointerLockElement === objCanvas ||
+	   document.webkitPointerLockElement === objCanvas) {
+
+    	console.log('The pointer lock status is now locked');
+		objCanvas.addEventListener("mousemove", test, false);
+  } else {
+    	console.log('The pointer lock status is now unlocked');
+		objCanvas.removeEventListener("mousemove", test, false);
+  }
+}
+
 function test(e) {
-	console.log(e.pageX+';'+e.pageY);
+	//console.log(e.movementX+';'+e.movementY);
+	var camera = objScene3D.camera;
+
+	// Regarder à gauche et à droite
+    var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
+    console.log(fltX);
+    var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+    var intDirection = e.movementX;
+    var fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
+    var fltXPrime = fltX * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
+    var fltZPrime = fltX * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
+    setCibleCameraX(getPositionCameraX(camera) + fltXPrime, camera);
+    setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+
+    var fltY = getCibleCameraY(camera) - getPositionCameraY(camera);
+    fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+    intDirection = e.movementY;
+    fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
+    var fltYPrime = fltY * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
+    fltZPrime = fltY * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
+    console.log(fltYPrime+';'+fltZPrime);
+    setCibleCameraY(getPositionCameraY(camera) + fltYPrime, camera);
+    setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+
+    effacerCanevas(objgl);
+	dessiner(objgl, objProgShaders, objScene3D);
 }
 
 function cameraLoop() {
@@ -115,18 +145,6 @@ function cameraLoop() {
 	    setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
 	    setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
     }
-
-    if (!(document.pointerLockElement === objCanvas) &&
-		!(document.mozPointerLockElement === objCanvas) &&
-		!(document.webkitPointerLockElement === objCanvas) &&
-		binMouseLock) {
-		// Pointer was just unlocked
-		// Disable the mousemove listener
-		objCanvas.removeEventListener("mousemove", test, false);
-		console.log('mouse unlocked');
-
-		binMouseLock = false;
-	}
 
     // Permet de ne pas réafficher si il n'y en a pas besoins
     if (binMovement) {
