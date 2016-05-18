@@ -12,6 +12,7 @@ var walls = null
 
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
+    objCanvas.focus();
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
     
     console.log(levels[0].length)
@@ -27,8 +28,6 @@ function demarrer() {
          dessiner(objgl, objProgShaders, objScene3D);
     }, 200);
    
-    
-
     // Dessiner avant la loop
     dessiner(objgl, objProgShaders, objScene3D);
 
@@ -57,8 +56,8 @@ function initScene3D(objgl) {
     
     // La caméra
     var camera = creerCamera();
-    setPositionsCameraXYZ([0, 0, 10], camera);
-    setCiblesCameraXYZ([0, 0, 0], camera);
+    setPositionsCameraXYZ([12.5, 0, 15], camera);
+    setCiblesCameraXYZ([12.5, 0, -20], camera);
     setOrientationsXYZ([0, 1, 0], camera);
 
     // Mettre la caméra sur la scène
@@ -84,7 +83,7 @@ function dessiner(objgl, objProgShaders, objScene3D) {
     // Matrice de projection
     var matProjection = mat4.create();
     var fltRapportCanevas = objgl.drawingBufferWidth / objgl.drawingBufferHeight;
-    mat4.perspective(45, fltRapportCanevas, 0.01, 100, matProjection);
+    mat4.perspective(80, fltRapportCanevas, 0.01, 100, matProjection);
  
 	// Relier la matrice aux shaders
     objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
