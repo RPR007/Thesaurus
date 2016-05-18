@@ -61,7 +61,7 @@ function test(e) {
 
 	// Regarder à gauche et à droite
     var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
-    console.log(fltX);
+   // console.log(fltX);
     var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
     var intDirection = e.movementX;
     var fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
@@ -76,7 +76,7 @@ function test(e) {
     fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
     var fltYPrime = fltY * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
     fltZPrime = fltY * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
-    console.log(fltYPrime+';'+fltZPrime);
+   // console.log(fltYPrime+';'+fltZPrime);
     setCibleCameraY(getPositionCameraY(camera) + fltYPrime, camera);
     setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
 
@@ -117,12 +117,15 @@ function cameraLoop() {
 	    var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltX / fltRayon));
 	    var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltZ / fltRayon));
 
-	    //console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
+        if(collision(getPositionCameraX(camera) + fltXPrime,  getPositionCameraZ(camera) + fltZPrime) != object.Wall) {
+             //console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
 
-	    setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
-	    setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
-	    setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
-	    setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+	        setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
+	        setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
+	        setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
+	        setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+        }
+	   
     }
 
     // Aller à gauche ou à droite
@@ -138,12 +141,14 @@ function cameraLoop() {
 	    var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltZ / fltRayon));
 	    var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltX / -fltRayon));
 
-	    //console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
-
-	    setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
-	    setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
-	    setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
-	    setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+	    console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
+	    console.log('x:'+getPositionCameraX(camera)+',z:'+getPositionCameraZ(camera))
+        if(collision(getPositionCameraX(camera) + fltXPrime,  getPositionCameraZ(camera) + fltZPrime) != object.Wall) {
+	        setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
+	        setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
+	        setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
+	        setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+        }
     }
 
     // Permet de ne pas réafficher si il n'y en a pas besoins
