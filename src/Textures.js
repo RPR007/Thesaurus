@@ -10,32 +10,28 @@ function creerTextures(objgl) {
     var tabloadImages = [0,0]
     
 	var tabObjTextures = new Array();
-	for (var i = 0; i < 3; i++) {    
+	for (var i = 0; i < tabImages.length; i++) {    
 		// L'image de la texture
 		var objImage = new Image();
 		objImage.src = tabImages[i];
+
 		// Cr�er La texture
         var objTexture = objgl.createTexture();
-        objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
-        objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, 1, 1, 0, objgl.RGBA, objgl.UNSIGNED_BYTE,new Uint8Array([0, 0, 0, 0])); // red
         //Etienne: A-t'on vraiment besoin de mettre les images dans une onload = function()?  Devrait fonctionner sinon.
-        objImage.onload = function() {    
-		   // La s�lectionner
-		   objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
+        //Je ne sais pas où tu as vu ça, pas besoins de onload pour les textures
 
-		   // Ins�rer l'image � l'int�rieur de la texture
-		   objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, objgl.RGBA,
-                         objgl.UNSIGNED_BYTE, objImage);
+       // La s�lectionner
+	   objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
 
-		    // La param�trer
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MAG_FILTER, objgl.NEAREST);
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MIN_FILTER, objgl.NEAREST);
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_S, objgl.CLAMP_TO_EDGE);
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.CLAMP_TO_EDGE);
-		    
-		    effacerCanevas(objgl);
-	        dessiner(objgl, objProgShaders, objScene3D);
-        }
+	   // Ins�rer l'image � l'int�rieur de la texture
+	   objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, objgl.RGBA,
+                     objgl.UNSIGNED_BYTE, objImage);
+
+	    // La param�trer
+	    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MAG_FILTER, objgl.NEAREST);
+	    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MIN_FILTER, objgl.NEAREST);
+	    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_S, objgl.CLAMP_TO_EDGE);
+	    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.CLAMP_TO_EDGE);
         
 	 	// Ins�rer cette texture dans un tableau de textures
 		tabObjTextures.push(objTexture);

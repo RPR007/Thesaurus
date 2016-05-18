@@ -12,13 +12,14 @@ function demarrer() {
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
-
-   // effacerCanevas(objgl); 
-   // dessiner(objgl, objProgShaders, objScene3D);
     
     var level = parseLevel(level);
-    var walls = level.wall.edges()
+    var walls = level.wall.edges();
 
+    // Dessiner avant la loop
+    dessiner(objgl, objProgShaders, objScene3D);
+
+    // Pour des raisons d'optimisation, la loop ne dessine quand le joueur bouge
     cameraLoop();
 }
 
