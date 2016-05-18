@@ -69,6 +69,7 @@ function test(e) {
     setCibleCameraX(getPositionCameraX(camera) + fltXPrime, camera);
     setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
 
+    /*
     var fltY = getCibleCameraY(camera) - getPositionCameraY(camera);
     console.log('fltY:'+fltY);
     fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
@@ -79,7 +80,7 @@ function test(e) {
     fltZPrime = fltY * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
     console.log(fltYPrime+';'+fltZPrime);
     setCibleCameraY(getPositionCameraY(camera) + fltYPrime, camera);
-    setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+    setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);*/
 
     effacerCanevas(objgl);
 	dessiner(objgl, objProgShaders, objScene3D);
