@@ -6,8 +6,6 @@ function creerMur(objgl) {
         walls.forEach(function(element, index, array) {
             var node1 = JSON.parse(element.v)
             var node2 = JSON.parse(element.w)
-            console.log(node1)
-            console.log(node2)
             // Horizontale
             if(node1.y == node2.y) {
                 
@@ -99,20 +97,24 @@ function creerMur(objgl) {
         var objMaillageCube = objgl.createBuffer();
         
         // Le maillage                        
-     /*   tabMaillageCube = [0,1,
-                           2,3,
-                           0,2,
-                           1,3,
-                           4,5,
-                           6,7,
-                           4,6,
-                           5,7,
-                           0,4,
-                           1,5,
-                           2,6,
-                           3,7] */
         tabMaillageCube = []
         for(var i = 0; i< 92;i++) {
+            // Triangle
+            tabMaillageCube = tabMaillageCube.concat([i*8,i*8+1,i*8+4,
+                                                      i*8+4,i*8+5,i*8+1,
+                                                      
+                                                      i*8+2,i*8+3,i*8+6,
+                                                      i*8+6,i*8+7,i*8+3,
+                                                      
+                                                      i*8,i*8+2,i*8+6,
+                                                      i*8+6,i*8+4,i*8,
+                                                      
+                                                      i*8+1,i*8+3,i*8+7,
+                                                      i*8+5,i*8+7,i*8+1]);
+        }
+        
+      /*  for(var i = 0; i< 92;i++) {
+            // Droite
             tabMaillageCube = tabMaillageCube.concat([i*8,i*8+1,
                                                       i*8+2,i*8+3,
                                                       i*8, i*8+2,
@@ -125,16 +127,16 @@ function creerMur(objgl) {
                                                       i*8+6,i*8+7,
                                                       i*8+4, i*8+6,
                                                       i*8+5, i*8+7]);
-        }
+        } */
             
         objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, objMaillageCube);
         objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabMaillageCube), objgl.STATIC_DRAW);
 
         // Le nombre de vertex pour les triangles
-        objMaillageCube.intNbElemsTriangles = 0;
+        objMaillageCube.intNbElemsTriangles = 2208;
         // Le nombre de vertex pour les droites
        // objMaillageCube.intNbElemsDroites = 1104;
        //objMaillageCube.intNbElemsDroites = 1472;
-        objMaillageCube.intNbElemsDroites = 2208;
+        objMaillageCube.intNbElemsDroites = 0;
         return objMaillageCube;
     }

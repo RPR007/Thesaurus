@@ -21,22 +21,22 @@ function creerTextures(objgl) {
         var objTexture = objgl.createTexture();
 
         objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
-        objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, 1, 1, 0, objgl.RGBA, objgl.UNSIGNED_BYTE,new Uint8Array([0, 0, 0, 0])); // red
+        objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, 1, 1, 0, objgl.RGBA, objgl.UNSIGNED_BYTE,new Uint8Array([255, 255, 0, 0])); // red
           
         // C'est nécessaire de mettre le onload pour les utilisateurs de firefox et de chrome
         objImage.onload = function() {    
 		   // La s�lectionner
-		   objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
+		//   objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
 
 		   // Ins�rer l'image � l'int�rieur de la texture
-		   objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, objgl.RGBA,
-                         objgl.UNSIGNED_BYTE, objImage);
+	//	   objgl.texImage2D(objgl.TEXTURE_2D, 0, objgl.RGBA, objgl.RGBA,
+         //                objgl.UNSIGNED_BYTE, objImage);
 
 		    // La param�trer
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MAG_FILTER, objgl.NEAREST);
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MIN_FILTER, objgl.NEAREST);
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_S, objgl.CLAMP_TO_EDGE);
-		    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.CLAMP_TO_EDGE);
+		 //   objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MAG_FILTER, objgl.NEAREST);
+		 //   objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MIN_FILTER, objgl.NEAREST);
+		 //   objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_S, objgl.CLAMP_TO_EDGE);
+		  //  objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.CLAMP_TO_EDGE);
 		    
         }
         
