@@ -1,6 +1,5 @@
 var keyState = [];
 var havePointerLock = null;
-//var binMouseLock = false;
 
 /*
 * Pour bouger utilisez soit les flêches (avancer, reculer, regarder à droite et à gauche)
@@ -24,14 +23,10 @@ function lockPointer(e) {
     					'webkitPointerLockElement' in document;
 
  	objCanvas.requestPointerLock = objCanvas.requestPointerLock ||
-								     objCanvas.mozRequestPointerLock ||
-								     objCanvas.webkitRequestPointerLock;
+								    objCanvas.mozRequestPointerLock ||
+								    objCanvas.webkitRequestPointerLock;
 	// Demander au naviguateur de bloquer la souris
 	objCanvas.requestPointerLock();
-
-	/*console.log('onpointerlockchange' in document);
-	console.log('onmozpointerlockchange' in document);
-	console.log('onwebkitpointerlockchange' in document);*/
 
 	if ('onpointerlockchange' in document) {
 	  	document.addEventListener('pointerlockchange', lockChange, false);
@@ -56,7 +51,6 @@ function lockChange(e) {
 }
 
 function test(e) {
-	//console.log(e.movementX+';'+e.movementY);
 	var camera = objScene3D.camera;
 
 	// Regarder à gauche et à droite
@@ -68,19 +62,6 @@ function test(e) {
     var fltZPrime = fltX * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
     setCibleCameraX(getPositionCameraX(camera) + fltXPrime, camera);
     setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
-
-    /*
-    var fltY = getCibleCameraY(camera) - getPositionCameraY(camera);
-    console.log('fltY:'+fltY);
-    fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
-    console.log('fltZ:'+fltZ);
-    intDirection = e.movementY;
-    fltAngle = (intDirection*speedCameraMouse) * Math.PI / 90; // Tourner 2 degrés
-    var fltYPrime = fltY * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
-    fltZPrime = fltY * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
-    console.log(fltYPrime+';'+fltZPrime);
-    setCibleCameraY(getPositionCameraY(camera) + fltYPrime, camera);
-    setCibleCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);*/
 
     effacerCanevas(objgl);
 	dessiner(objgl, objProgShaders, objScene3D);
@@ -120,8 +101,6 @@ function cameraLoop() {
 	    var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltZ / fltRayon));
 
         if(collision(getPositionCameraX(camera) + fltXPrime,  getPositionCameraZ(camera) + fltZPrime) != object.Wall) {
-             //console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
-
 	        setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
 	        setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
 	        setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
@@ -143,8 +122,6 @@ function cameraLoop() {
 	    var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltZ / fltRayon));
 	    var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltX / -fltRayon));
 
-	    console.log('fltXPrime : '+ fltXPrime +' ; fltZPrime : '+ fltZPrime);
-	    console.log('x:'+getPositionCameraX(camera)+',z:'+getPositionCameraZ(camera))
         if(collision(getPositionCameraX(camera) + fltXPrime,  getPositionCameraZ(camera) + fltZPrime) != object.Wall) {
 	        setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
 	        setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
@@ -157,6 +134,7 @@ function cameraLoop() {
     if (binMovement) {
 		effacerCanevas(objgl);
 	    dessiner(objgl, objProgShaders, objScene3D);
+	    //console.log('x:'+getPositionCameraX(camera)+',z:'+getPositionCameraZ(camera))
     }
 
     setTimeout(cameraLoop, 10);

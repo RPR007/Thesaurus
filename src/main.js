@@ -4,7 +4,7 @@ var objScene3D = null;
 var objCanvas = null;
 
 var speedWalk = 0.3;   // Change la vitesse des mouvements
-var speedCamera = 0.5;  // Change la vitesse de la vue (regarder à droite ou à gauche)
+var speedCamera = 1.0;  // Change la vitesse de la vue (regarder à droite ou à gauche)
 var speedCameraMouse = 0.1;
 
 var level = null
