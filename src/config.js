@@ -1,1 +1,1 @@
-var wall_height = 100;
+var time = 60; // En secondes
