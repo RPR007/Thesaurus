@@ -6,7 +6,8 @@ var TEX_PLANCHER = 2;
 
 function creerTextures(objgl) {
 
-    // il faut ajouter l'image plancher.jpg sur github 
+    // il faut ajouter l'image plancher.jpg sur github
+    //l'image est deja placer dans le dossier img avec les bonne dimensions...
     //var tabImages = ['img/Transparent.gif', 'img/metal.jpg', 'img/plancher.jpg'];
     var tabImages = ['img/Transparent.gif', 'img/metal.jpg'];
     
