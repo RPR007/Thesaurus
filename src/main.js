@@ -43,14 +43,16 @@ function initScene3D(objgl) {
     objScene3D.textures = creerTextures(objgl);
 		 
      // Créer 1 cube
-    var objet3D = new Object();
-    objet3D.vertex = creerMur(objgl); 
-    objet3D.couleurs = creerCouleursMur(objgl);
-    objet3D.maillage = creerMaillageMur(objgl);
-    objet3D.texels = creerTexelsMur(objgl);
-    objet3D.transformations = creerTransformations();
-    tabObjets3D.push(objet3D);
-         
+    for(var i = 0; i < walls.length; i++) {
+        var objet3D = new Object();
+        objet3D.vertex = creerMur(objgl,walls[i]); 
+        objet3D.couleurs = creerCouleursMur(objgl);
+        objet3D.maillage = creerMaillageMur(objgl);
+        objet3D.texels = creerTexelsMur(objgl);
+        objet3D.transformations = creerTransformations();
+        tabObjets3D.push(objet3D);
+    }
+    
      // Mettre les objets 3D sur la scène
     objScene3D.tabObjets3D = tabObjets3D;
     

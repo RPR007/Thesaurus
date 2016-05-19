@@ -1,59 +1,67 @@
-function creerMur(objgl) {
+function creerMur(objgl,wall) {
         var objCube = objgl.createBuffer();
 
-        var tabVertex = new Array()
+        var tabVertex = []
+        var node1 = JSON.parse(wall.v)
+        var node2 = JSON.parse(wall.w)
         
-        walls.forEach(function(element, index, array) {
-            var node1 = JSON.parse(element.v)
-            var node2 = JSON.parse(element.w)
-            // Horizontale
-            if(node1.y == node2.y) {
+        if(node1.y == node2.y) {
+            tabVertex = [
+                // Face Avant
+                node1.x,1.0,node1.y+1, // 0 Haut Droit
+                node1.x,-1.0,node1.y+1, // 1 Bas Droit
+                node1.x,-1.0,node1.y, // 2 Bas Gauche
+                node1.x, 1.0,node1.y, // 3 Haut Gauche
                 
-                for(var i = -1; i < 2; i+=2) {
-                    tabVertex.push(node1.x)
-                    tabVertex.push(i)
-                    tabVertex.push(node1.y)
-            
-                    tabVertex.push(node1.x)
-                    tabVertex.push(i)
-                    tabVertex.push(node1.y+1)
-            
-                    tabVertex.push(node2.x)
-                    tabVertex.push(i)
-                    tabVertex.push(node2.y)
-            
-                    tabVertex.push(node2.x)
-                    tabVertex.push(i)
-                    tabVertex.push(node2.y+1)
-                }  
-                // Vertical
-            } else {
-                for(var i = -1; i < 2; i+=2) {
-                    tabVertex.push(node1.x)
-                    tabVertex.push(i)
-                    tabVertex.push(node1.y)
-            
-                    tabVertex.push(node1.x+1)
-                    tabVertex.push(i)
-                    tabVertex.push(node1.y)
-            
-                    tabVertex.push(node2.x)
-                    tabVertex.push(i)
-                    tabVertex.push(node2.y)
-            
-                    tabVertex.push(node2.x+1)
-                    tabVertex.push(i)
-                    tabVertex.push(node2.y)
-                }
-            }
-            
-        })
-   
+                // Face Arriere
+                node2.x,1.0,node2.y+1, // 4 Haut Droit
+                node2.x,-1.0,node2.y+1, // 5 Bas Droit
+                node2.x,-1.0,node2.y, // 6 Bas Gauche
+                node2.x, 1.0,node2.y, // 7 Haut Gauche
+                
+                // Coter Droit
+                node2.x,1.0,node2.y+1, // 8 Haut Droit
+                node2.x,-1.0,node2.y+1, // 9 Bas Droit
+                node1.x,-1.0,node1.y+1, // 10 Bas Gauche
+                node1.x,1.0,node1.y+1, // 11 Haut Gauche
+                
+                // Coter Gauche
+                node2.x, 1.0,node2.y, // 12 Haut Droit
+                node2.x,-1.0,node2.y, // 13 Bas Droit
+                node1.x,-1.0,node1.y, // 14 Bas Gauche
+                node1.x, 1.0,node1.y, // 15 Haut Gauche
+            ]
+        } else {
+            tabVertex = [
+                // Face Avant
+                node1.x+1,1.0,node1.y, // 0 Haut Droit
+                node1.x+1,-1.0,node1.y, // 1 Bas Droit
+                node1.x,-1.0,node1.y, // 2 Bas Gauche
+                node1.x, 1.0,node1.y, // 3 Haut Gauche
+                
+                // Face Arriere
+                node2.x+1,1.0,node2.y, // 4 Haut Droit
+                node2.x+1,-1.0,node2.y, // 5 Bas Droit
+                node2.x,-1.0,node2.y, // 6 Bas Gauche
+                node2.x, 1.0,node2.y, // 7 Haut Gauche
+                
+                // Coter Droit
+                node2.x+1,1.0,node2.y, // 8 Haut Droit
+                node2.x+1,-1.0,node2.y, // 9 Bas Droit
+                node1.x+1,-1.0,node1.y, // 10 Bas Gauche
+                node1.x+1,1.0,node1.y, // 11 Haut Gauche
+                
+                // Coter Gauche
+                node2.x, 1.0,node2.y, // 12 Haut Droit
+                node2.x,-1.0,node2.y, // 13 Bas Droit
+                node1.x,-1.0,node1.y, // 14 Bas Gauche
+                node1.x, 1.0,node1.y, // 15 Haut Gauche
+            ]
+        }
 
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabVertex), objgl.STATIC_DRAW);
-        objCube.intNbElems = 736 ; objCube.intTailleElem = 3;
-     //   objCube.intNbElems = 8 ; objCube.intTailleElem = 3;
+        objCube.intNbElems = 16 ; objCube.intTailleElem = 3;
 
         return objCube;
     }
@@ -62,14 +70,13 @@ function creerMur(objgl) {
         var objCouleursCube = objgl.createBuffer();
 
         tabCouleurs = []
-        for(var i = 0; i< 736;i++)
-            tabCouleurs = tabCouleurs.concat([1.0, 1.0, 1.0, 1.0]);
+        for(var i = 0; i< 16;i++)
+          tabCouleurs = tabCouleurs.concat([0.0, 0.0, 0.0, 1.0]);
         
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabCouleurs), objgl.STATIC_DRAW);
 
-        objCouleursCube.intNbElems = 736; objCouleursCube.intTailleElem = 4;
-      // objCouleursCube.intNbElems = 8; objCouleursCube.intTailleElem = 4;
+        objCouleursCube.intNbElems = 16; objCouleursCube.intTailleElem = 4;
 
         return objCouleursCube;
     }
@@ -78,37 +85,33 @@ function creerMur(objgl) {
     function creerTexelsMur(objgl) {
         var objTexelsCube = objgl.createBuffer();
 
-        tabTexels = [] 
+        tabTexels = [
+                 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0,  // 4: Coin haut gauche
+
+				 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0,  // 4: Coin haut gauche 
+                 
+                 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0,  // 4: Coin haut gauche
+
+				 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0  // 4: Coin haut gauche 
+        ] 
    
-        for(var i = 0; i< 92;i++) {
-            tabTexels = tabCouleurs.concat(
-                [0.0,0.0,
-                 1.0,0.0,
-                 0.0,1.0,
-                 1.0,1.0,
-                 
-                 0.0,0.0,
-                 1.0,0.0,
-                 0.0,1.0,
-                 1.0,1.0,
-                 
-                 0.0,0.0,
-                 1.0,0.0,
-                 0.0,1.0,
-                 1.0,1.0,
-                 
-                 0.0,0.0,
-                 1.0,0.0,
-                 0.0,1.0,
-                 1.0,1.0] 
-            );  
-        }
-        
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabTexels), objgl.STATIC_DRAW);
 
         // 10 texels
-        objTexelsCube.intNbElems = 736; objTexelsCube.intTailleElem = 2;
+        objTexelsCube.intNbElems = 16; objTexelsCube.intTailleElem = 2;
         // 100% de la texture est utilisée
         objTexelsCube.intNoTexture = TEX_METAL; objTexelsCube.pcCouleurTexel = 1.00;
 
@@ -120,47 +123,24 @@ function creerMur(objgl) {
         var objMaillageCube = objgl.createBuffer();
         
         // Le maillage                        
-        tabMaillageCube = []
-        for(var i = 0; i< 92;i++) {
-            // Triangle
-            tabMaillageCube = tabMaillageCube.concat([i*8,i*8+1,i*8+4,
-                                                      i*8+4,i*8+5,i*8+1,
-                                                      
-                                                      i*8+2,i*8+3,i*8+6,
-                                                      i*8+6,i*8+7,i*8+3,
-                                                      
-                                                      i*8,i*8+2,i*8+6,
-                                                      i*8+6,i*8+4,i*8,
-                                                      
-                                                      i*8+1,i*8+3,i*8+7,
-                                                      i*8+5,i*8+7,i*8+1]);
-        }
-        
-      /*  for(var i = 0; i< 92;i++) {
-            // Droite
-            tabMaillageCube = tabMaillageCube.concat([i*8,i*8+1,
-                                                      i*8+2,i*8+3,
-                                                      i*8, i*8+2,
-                                                      i*8+1, i*8+3]);
-            tabMaillageCube = tabMaillageCube.concat([i*8,i*8+4,
-                                                      i*8+1,i*8+5,
-                                                      i*8+2, i*8+6,
-                                                      i*8+3, i*8+7]);
-            tabMaillageCube = tabMaillageCube.concat([i*8+4,i*8+5,
-                                                      i*8+6,i*8+7,
-                                                      i*8+4, i*8+6,
-                                                      i*8+5, i*8+7]);
-        } */
+        tabMaillageCube = [
+            3,2,0,
+			1,2,0,
+			7,6,4,
+			5,6,4,
+			11,8,10,
+			9,10,8,
+			13,14,12,
+			15,14,12
+        ]
+     
             
         objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, objMaillageCube);
         objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabMaillageCube), objgl.STATIC_DRAW);
 
         // Le nombre de vertex pour les triangles
-        objMaillageCube.intNbElemsTriangles = 2208;
-      //objMaillageCube.intNbElemsTriangles = 24;
+        objMaillageCube.intNbElemsTriangles = 24;
         // Le nombre de vertex pour les droites
-       // objMaillageCube.intNbElemsDroites = 1104;
-       //objMaillageCube.intNbElemsDroites = 1472;
         objMaillageCube.intNbElemsDroites = 0;
         return objMaillageCube;
     }
