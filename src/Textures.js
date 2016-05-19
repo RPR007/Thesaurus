@@ -2,14 +2,13 @@
 
 var TEX_TRANSPARENT = 0;
 var TEX_METAL = 1;
-var TEX_PLANCHER = 2;
+var TEX_PLANCHER = 1;
 
 function creerTextures(objgl) {
 
     // il faut ajouter l'image plancher.jpg sur github
-    //l'image est deja placer dans le dossier img avec les bonne dimensions...
-    //var tabImages = ['img/Transparent.gif', 'img/metal.jpg', 'img/plancher.jpg'];
-    var tabImages = ['img/Transparent.gif', 'img/metal.jpg'];
+    var tabImages = ['img/Transparent.gif', 'img/plancher.jpg'];
+    //var tabImages = ['img/Transparent.gif', 'img/metal.jpg'];
     
 	var tabObjTextures = new Array();
 	for (var i = 0; i < tabImages.length; i++) {    
