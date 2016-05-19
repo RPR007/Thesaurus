@@ -49,11 +49,11 @@ function creerMur(objgl) {
             
         })
    
-        console.log(tabVertex.length/3)
 
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabVertex), objgl.STATIC_DRAW);
         objCube.intNbElems = 736 ; objCube.intTailleElem = 3;
+     //   objCube.intNbElems = 8 ; objCube.intTailleElem = 3;
 
         return objCube;
     }
@@ -69,6 +69,7 @@ function creerMur(objgl) {
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabCouleurs), objgl.STATIC_DRAW);
 
         objCouleursCube.intNbElems = 736; objCouleursCube.intTailleElem = 4;
+      // objCouleursCube.intNbElems = 8; objCouleursCube.intTailleElem = 4;
 
         return objCouleursCube;
     }
@@ -77,10 +78,32 @@ function creerMur(objgl) {
     function creerTexelsMur(objgl) {
         var objTexelsCube = objgl.createBuffer();
 
-        tabTexels = []
-        for(var i = 0; i< 746;i++)
-            tabTexels = tabCouleurs.concat([0.0, 0.0]);
-            
+        tabTexels = [] 
+   
+        for(var i = 0; i< 92;i++) {
+            tabTexels = tabCouleurs.concat(
+                [0.0,0.0,
+                 1.0,0.0,
+                 0.0,1.0,
+                 1.0,1.0,
+                 
+                 0.0,0.0,
+                 1.0,0.0,
+                 0.0,1.0,
+                 1.0,1.0,
+                 
+                 0.0,0.0,
+                 1.0,0.0,
+                 0.0,1.0,
+                 1.0,1.0,
+                 
+                 0.0,0.0,
+                 1.0,0.0,
+                 0.0,1.0,
+                 1.0,1.0] 
+            );  
+        }
+        
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabTexels), objgl.STATIC_DRAW);
 
@@ -134,6 +157,7 @@ function creerMur(objgl) {
 
         // Le nombre de vertex pour les triangles
         objMaillageCube.intNbElemsTriangles = 2208;
+      //objMaillageCube.intNbElemsTriangles = 24;
         // Le nombre de vertex pour les droites
        // objMaillageCube.intNbElemsDroites = 1104;
        //objMaillageCube.intNbElemsDroites = 1472;
