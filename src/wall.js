@@ -14,20 +14,20 @@ function creerMur(objgl,wall) {
                 node1.x, 1.0,node1.y, // 3 Haut Gauche
                 
                 // Face Arriere
-                node2.x,1.0,node2.y+1, // 4 Haut Droit
-                node2.x,-1.0,node2.y+1, // 5 Bas Droit
-                node2.x,-1.0,node2.y, // 6 Bas Gauche
-                node2.x, 1.0,node2.y, // 7 Haut Gauche
+                node2.x+1,1.0,node2.y+1, // 4 Haut Droit
+                node2.x+1,-1.0,node2.y+1, // 5 Bas Droit
+                node2.x+1,-1.0,node2.y, // 6 Bas Gauche
+                node2.x+1, 1.0,node2.y, // 7 Haut Gauche
                 
                 // Coter Droit
-                node2.x,1.0,node2.y+1, // 8 Haut Droit
-                node2.x,-1.0,node2.y+1, // 9 Bas Droit
+                node2.x+1,1.0,node2.y+1, // 8 Haut Droit
+                node2.x+1,-1.0,node2.y+1, // 9 Bas Droit
                 node1.x,-1.0,node1.y+1, // 10 Bas Gauche
                 node1.x,1.0,node1.y+1, // 11 Haut Gauche
                 
                 // Coter Gauche
-                node2.x, 1.0,node2.y, // 12 Haut Droit
-                node2.x,-1.0,node2.y, // 13 Bas Droit
+                node2.x+1, 1.0,node2.y, // 12 Haut Droit
+                node2.x+1,-1.0,node2.y, // 13 Bas Droit
                 node1.x,-1.0,node1.y, // 14 Bas Gauche
                 node1.x, 1.0,node1.y, // 15 Haut Gauche
             ]
@@ -40,20 +40,20 @@ function creerMur(objgl,wall) {
                 node1.x, 1.0,node1.y, // 3 Haut Gauche
                 
                 // Face Arriere
-                node2.x+1,1.0,node2.y, // 4 Haut Droit
-                node2.x+1,-1.0,node2.y, // 5 Bas Droit
-                node2.x,-1.0,node2.y, // 6 Bas Gauche
-                node2.x, 1.0,node2.y, // 7 Haut Gauche
+                node2.x+1,1.0,node2.y+1, // 4 Haut Droit
+                node2.x+1,-1.0,node2.y+1, // 5 Bas Droit
+                node2.x,-1.0,node2.y+1, // 6 Bas Gauche
+                node2.x, 1.0,node2.y+1, // 7 Haut Gauche
                 
                 // Coter Droit
-                node2.x+1,1.0,node2.y, // 8 Haut Droit
-                node2.x+1,-1.0,node2.y, // 9 Bas Droit
+                node2.x+1,1.0,node2.y+1, // 8 Haut Droit
+                node2.x+1,-1.0,node2.y+1, // 9 Bas Droit
                 node1.x+1,-1.0,node1.y, // 10 Bas Gauche
                 node1.x+1,1.0,node1.y, // 11 Haut Gauche
                 
                 // Coter Gauche
-                node2.x, 1.0,node2.y, // 12 Haut Droit
-                node2.x,-1.0,node2.y, // 13 Bas Droit
+                node2.x, 1.0,node2.y+1, // 12 Haut Droit
+                node2.x,-1.0,node2.y+1, // 13 Bas Droit
                 node1.x,-1.0,node1.y, // 14 Bas Gauche
                 node1.x, 1.0,node1.y, // 15 Haut Gauche
             ]

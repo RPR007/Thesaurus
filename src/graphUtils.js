@@ -19,7 +19,93 @@ function groupBy(array, val) {
     return graph;
 }
 
+function groupByPrime(array, val) {
+    var graphHorizontal = groupHorizontalBy(array, val)
+    var edgeHorizontal = graphHorizontal.walls.edges();
+    var nodesHorizontal = graphHorizontal.nodes.nodes();
+    var graphVertical = groupVerticalBy(array, val)
+    var edgeVertical = graphVertical.walls.edges();
+    
+    for(var i = 0; i < edgeVertical.length; i++) {
+        var node1 = edgeVertical[i].v
+        var node2 = edgeVertical[i].w
+        
+        if(graphCollision(edgeHorizontal, node1) && graphCollision(edgeHorizontal, node2)) {
+            graphVertical.walls.removeNode(node1)
+            graphVertical.walls.removeNode(node2)
+            
+            node1 = JSON.parse(node1)
+            node2 = JSON.parse(node2)
+            
+            node1.y =  node1.y+1
+            node2.y =  node2.y-1
+            
+            graphVertical.walls.setNode(JSON.stringify(node1),JSON.stringify(node1))
+            graphVertical.walls.setNode(JSON.stringify(node2),JSON.stringify(node2))
+            
+            graphVertical.walls.setEdge(JSON.stringify(node1),JSON.stringify(node2))
+        } else if (graphCollision(edgeHorizontal, node1)) {
+            graphVertical.walls.removeNode(node1)
+            graphVertical.walls.removeNode(node2)
+            
+            node1 = JSON.parse(node1)
+            node2 = JSON.parse(node2)
+            
+            node1.y =  node1.y+1
+            
+            graphVertical.walls.setNode(JSON.stringify(node1),JSON.stringify(node1))
+            graphVertical.walls.setNode(JSON.stringify(node2),JSON.stringify(node2))
+            
+            graphVertical.walls.setEdge(JSON.stringify(node1),JSON.stringify(node2))
+            
+        } else if (graphCollision(edgeHorizontal, node2)) {
+            graphVertical.walls.removeNode(node1)
+            graphVertical.walls.removeNode(node2)
+            
+            node1 = JSON.parse(node1)
+            node2 = JSON.parse(node2)
+            
+            node2.y =  node2.y-1
+            
+            graphVertical.walls.setNode(JSON.stringify(node1),JSON.stringify(node1))
+            graphVertical.walls.setNode(JSON.stringify(node2),JSON.stringify(node2))
+            
+            graphVertical.walls.setEdge(JSON.stringify(node1),JSON.stringify(node2))
+        } else {
+            
+        }
+    }
+    
+    edgeVertical = graphVertical.walls.edges();
+    
+    var graph = appendEdgeGraph(edgeHorizontal,edgeVertical)
+    for(var i = 0; i < nodesHorizontal.length;i++) {
+        if(graphVertical.nodes.hasNode(nodesHorizontal[i])) {
+            var h = nodesHorizontal[i]
+            graph.setNode(h,h)
+            graph.setEdge(h,h)
+        }    
+    }
+    
+    return graph;
+}
 
+function graphCollision(edges, node) {
+    var collision = false;
+    
+    for(var i = 0; !collision && i < edges.length; i++) {
+        var node1 = JSON.parse(edges[i].v)
+        var node2 = JSON.parse(edges[i].w)
+        var node3 = JSON.parse(node)
+        
+        if(node3.y == node1.y)
+            if(node3.x >=  node1.x && node3.x <= node2.x)
+                collision = true
+                
+    }
+    
+    return collision;
+}
 
 function appendEdgeGraph(edgeGraph1,edgeGraph2) {
     var graph = new graphlib.Graph();
@@ -41,6 +127,7 @@ function appendEdgeGraph(edgeGraph1,edgeGraph2) {
     return graph
 }
 
+
 function groupHorizontalBy(array, val) {
     var graph = new graphlib.Graph();
     var graph2 = new graphlib.Graph();
@@ -50,8 +137,11 @@ function groupHorizontalBy(array, val) {
             if(array[i][j] === val) {
                 if(j+1 < array[i].length && array[i][j+1] === val) {
                     var start = JSON.stringify({x:j,y:i})
-                    for(; j < array[i].length && array[i][j] === val;j++);
+                    for(; j < array[i].length && array[i][j] === val;++j);
+                    j--
                     var end = JSON.stringify({x:j,y:i})
+                    console.log(start)
+                    console.log(end)
                     graph.setNode(start,start)
                     graph.setNode(start,end)
                     graph.setEdge(start,end)
@@ -74,7 +164,8 @@ function groupVerticalBy(array, val) {
             if(array[j][i] === val) {
                 if(j+1 < array.length && array[j+1][i] === val) {
                     var start = JSON.stringify({x:i,y:j})
-                    for(; j < array.length && array[j][i] === val;j++);
+                    for(; j < array.length && array[j][i] === val;++j);
+                    j--;
                     var end = JSON.stringify({x:i,y:j})
                     graph.setNode(start,start)
                     graph.setNode(end,end)

@@ -5,7 +5,6 @@ object = {
 
 function collision(x,  y) {
     _collisionWall = collisionWall(x,y)
-    
     return _collisionWall
 }
 
@@ -20,7 +19,7 @@ function collisionWall(x,y) {
         // Horizontale
         if(node1.y == node2.y) {
             if(x >= node1.x-incertidumbre
-              && x <= node2.x+incertidumbre
+              && x <= node2.x+1+incertidumbre
               && y >= node1.y-incertidumbre
               && y <= node1.y+1+incertidumbre)
                 collision = object.Wall
@@ -29,11 +28,10 @@ function collisionWall(x,y) {
             if(x >= node1.x-incertidumbre
               && x <= node1.x+1+incertidumbre
               && y >= node1.y-incertidumbre
-              && y <= node2.y+incertidumbre)
+              && y <= node2.y+1+incertidumbre)
                 collision = object.Wall
         }
     }
     
-    //console.log(x + ',' + y)
     return collision
 }
