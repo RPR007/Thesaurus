@@ -36,12 +36,29 @@ function demarrer() {
 }
 
 function initScene3D(objgl) {
-   var objScene3D = new Object();
-    var tabObjets3D = new Array();
+    var objScene3D = new Object();
     
     // Mettre les textures dans la scène
     objScene3D.textures = creerTextures(objgl);
 		 
+    // Mettre les objets 3D sur la scène
+    objScene3D.tabObjets3D = objet()
+    
+    // La caméra
+    var camera = creerCamera();
+    setPositionsCameraXYZ([12.5, 0, 15], camera);
+    setCiblesCameraXYZ([12.5, 0, -20], camera);
+    setOrientationsXYZ([0, 1, 0], camera);
+
+    // Mettre la caméra sur la scène
+    objScene3D.camera = camera;
+			
+    return objScene3D;
+}
+
+function objet() {
+    var tabObjets3D = new Array();
+    
      // Créer Murs
     for(var i = 0; i < walls.length; i++) {
         var objet3D = new Object();
@@ -71,29 +88,8 @@ function initScene3D(objgl) {
     objet3D.transformations = creerTransformations();
     tabObjets3D.push(objet3D);
         
-     // Mettre les objets 3D sur la scène
-    objScene3D.tabObjets3D = tabObjets3D;
     
-    // La caméra
-    var camera = creerCamera();
-    setPositionsCameraXYZ([12.5, 0, 15], camera);
-    setCiblesCameraXYZ([12.5, 0, -20], camera);
-    setOrientationsXYZ([0, 1, 0], camera);
-
-    // Mettre la caméra sur la scène
-    objScene3D.camera = camera;
-	
-	//Le plancher
-	var plancher = creerPlancher(objgl);
-	plancher.vertex = creerVertexPlancher(objgl, plancher.fltLargeur, plancher.fltProfondeur);
-    plancher.couleurs = creerCouleursPlancher(objgl, [1, 1, 1, 1]);
-	plancher.texels = creerTexelsPlancher(objgl, plancher.fltLargeur, plancher.fltProfondeur);
-	plancher.maillage = creerMaillagePlancher(objgl);
-	
-	// Mettre le plancher sur la scène
-	objScene3D.plancher = plancher;
-			
-    return objScene3D;
+    return tabObjets3D
 }
 
 function dessiner(objgl, objProgShaders, objScene3D) {

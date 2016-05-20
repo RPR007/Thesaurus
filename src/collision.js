@@ -5,12 +5,13 @@ object = {
 
 function collision(x,  y) {
     _collisionWall = collisionWall(x,y)
-    return _collisionWall
+    return _collisionWall.collision
 }
 
 function collisionWall(x,y) {
     var collision = object.Nothing
     var incertidumbre = 0.05
+    var i
     
     for(i = 0; collision == object.Nothing && i < walls.length; i++) {
         var node1 = JSON.parse(walls[i].v)
@@ -33,5 +34,7 @@ function collisionWall(x,y) {
         }
     }
     
-    return collision
+    i--
+    
+    return { collision : collision, nwall : i } 
 }
