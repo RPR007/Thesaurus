@@ -70,8 +70,8 @@ function bomb(wall, x, y) {
     } else {
         node1 = JSON.stringify(node1)
         node2 = JSON.stringify(node2)
-        var node3 = {x:x, y:y-1}
-        var node4 = {x:x, y:y+1}
+        var node3 = JSON.stringify({x:x, y:y-1})
+        var node4 = JSON.stringify({x:x, y:y+1})
         
         level.wall.setNode(node1,node1)
         level.wall.setNode(node2,node2)
