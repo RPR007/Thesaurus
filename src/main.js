@@ -42,7 +42,7 @@ function initScene3D(objgl) {
     // Mettre les textures dans la scène
     objScene3D.textures = creerTextures(objgl);
 		 
-     // Créer 1 cube
+     // Créer Murs
     for(var i = 0; i < walls.length; i++) {
         var objet3D = new Object();
         objet3D.vertex = creerMur(objgl,walls[i]); 
@@ -53,6 +53,24 @@ function initScene3D(objgl) {
         tabObjets3D.push(objet3D);
     }
     
+    // Créer plancher
+    var objet3D = new Object();
+    objet3D.vertex = creerVertexPlancher(objgl,levels[0].length,levels[0][0]); 
+    objet3D.couleurs = creerCouleursPlancher(objgl);
+    objet3D.maillage = creerMaillagePlancher(objgl);
+    objet3D.texels = creerTexelsPlancher(objgl,levels[0].length,levels[0][0]);
+    objet3D.transformations = creerTransformations();
+    tabObjets3D.push(objet3D);
+    
+    // Créer plafond
+    var objet3D = new Object();
+    objet3D.vertex = creerVertexPlafond(objgl,levels[0].length,levels[0][0]); 
+    objet3D.couleurs = creerCouleursPlafond(objgl);
+    objet3D.maillage = creerMaillagePlafond(objgl);
+    objet3D.texels = creerTexelsPlafond(objgl,levels[0].length,levels[0][0]);
+    objet3D.transformations = creerTransformations();
+    tabObjets3D.push(objet3D);
+        
      // Mettre les objets 3D sur la scène
     objScene3D.tabObjets3D = tabObjets3D;
     

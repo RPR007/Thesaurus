@@ -6,56 +6,58 @@ function creerMur(objgl,wall) {
         var node2 = JSON.parse(wall.w)
         
         if(node1.y == node2.y) {
+            // Horizontal
             tabVertex = [
                 // Face Avant
-                node1.x,1.0,node1.y+1, // 0 Haut Droit
+                node1.x,height,node1.y+1, // 0 Haut Droit
                 node1.x,-1.0,node1.y+1, // 1 Bas Droit
                 node1.x,-1.0,node1.y, // 2 Bas Gauche
-                node1.x, 1.0,node1.y, // 3 Haut Gauche
+                node1.x, height,node1.y, // 3 Haut Gauche
                 
                 // Face Arriere
-                node2.x+1,1.0,node2.y+1, // 4 Haut Droit
+                node2.x+1,height,node2.y+1, // 4 Haut Droit
                 node2.x+1,-1.0,node2.y+1, // 5 Bas Droit
                 node2.x+1,-1.0,node2.y, // 6 Bas Gauche
-                node2.x+1, 1.0,node2.y, // 7 Haut Gauche
+                node2.x+1, height,node2.y, // 7 Haut Gauche
                 
                 // Coter Droit
-                node2.x+1,1.0,node2.y+1, // 8 Haut Droit
+                node2.x+1,height,node2.y+1, // 8 Haut Droit
                 node2.x+1,-1.0,node2.y+1, // 9 Bas Droit
                 node1.x,-1.0,node1.y+1, // 10 Bas Gauche
-                node1.x,1.0,node1.y+1, // 11 Haut Gauche
+                node1.x,height,node1.y+1, // 11 Haut Gauche
                 
                 // Coter Gauche
-                node2.x+1, 1.0,node2.y, // 12 Haut Droit
+                node2.x+1, height,node2.y, // 12 Haut Droit
                 node2.x+1,-1.0,node2.y, // 13 Bas Droit
                 node1.x,-1.0,node1.y, // 14 Bas Gauche
-                node1.x, 1.0,node1.y, // 15 Haut Gauche
+                node1.x, height,node1.y, // 15 Haut Gauche
             ]
         } else {
+            // Vertical
             tabVertex = [
                 // Face Avant
-                node1.x+1,1.0,node1.y, // 0 Haut Droit
+                node1.x+1,2.0,node1.y, // 0 Haut Droit
                 node1.x+1,-1.0,node1.y, // 1 Bas Droit
                 node1.x,-1.0,node1.y, // 2 Bas Gauche
-                node1.x, 1.0,node1.y, // 3 Haut Gauche
+                node1.x, 2.0,node1.y, // 3 Haut Gauche
                 
                 // Face Arriere
-                node2.x+1,1.0,node2.y+1, // 4 Haut Droit
+                node2.x+1,2.0,node2.y+1, // 4 Haut Droit
                 node2.x+1,-1.0,node2.y+1, // 5 Bas Droit
                 node2.x,-1.0,node2.y+1, // 6 Bas Gauche
-                node2.x, 1.0,node2.y+1, // 7 Haut Gauche
+                node2.x, 2.0,node2.y+1, // 7 Haut Gauche
                 
                 // Coter Droit
-                node2.x+1,1.0,node2.y+1, // 8 Haut Droit
+                node2.x+1,2.0,node2.y+1, // 8 Haut Droit
                 node2.x+1,-1.0,node2.y+1, // 9 Bas Droit
                 node1.x+1,-1.0,node1.y, // 10 Bas Gauche
-                node1.x+1,1.0,node1.y, // 11 Haut Gauche
+                node1.x+1,2.0,node1.y, // 11 Haut Gauche
                 
                 // Coter Gauche
-                node2.x, 1.0,node2.y+1, // 12 Haut Droit
+                node2.x, 2.0,node2.y+1, // 12 Haut Droit
                 node2.x,-1.0,node2.y+1, // 13 Bas Droit
                 node1.x,-1.0,node1.y, // 14 Bas Gauche
-                node1.x, 1.0,node1.y, // 15 Haut Gauche
+                node1.x, 2.0,node1.y, // 15 Haut Gauche
             ]
         }
 

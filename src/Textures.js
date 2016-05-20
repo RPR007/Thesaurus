@@ -3,6 +3,7 @@
 var TEX_TRANSPARENT = 0;
 var TEX_METAL = 1;
 var TEX_PLANCHER = 1;
+var TEX_PLAFOND= 1;
 
 function creerTextures(objgl) {
 
