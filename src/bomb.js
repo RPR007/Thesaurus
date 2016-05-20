@@ -13,8 +13,9 @@ function bomb(wall, x, y) {
     x=Math.floor(x)
     y=Math.floor(y)
     
-    if(node1.y == node2.y && node1.x == node2.y) {
+    if(node1.y == node2.y && node1.x == node2.x) {
         // on fait rien
+        console.log("adfasdfasdf")
     // Horizontal    
     } else if(node1.x == x && node1.y == y) {
        if(node1.y == node2.y) {
@@ -36,7 +37,6 @@ function bomb(wall, x, y) {
        }
     } else if (node2.x == x && node2.y == y) {
        if(node1.y == node2.y) {
-           console.log("asdfasdf")
            node1 = JSON.stringify(node1)
            node2 = JSON.stringify({x : node2.x-1, y : node2.y})
            
