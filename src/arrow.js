@@ -82,7 +82,7 @@ function creerTexelsFleche(objgl) {
         // 10 texels
         objTexelsCube.intNbElems = 14; objTexelsCube.intTailleElem = 2;
         // 100% de la texture est utilisée
-        objTexelsCube.intNoTexture = TEX_METAL; objTexelsCube.pcCouleurTexel = 0.5;
+        objTexelsCube.intNoTexture = TEX_METAL; objTexelsCube.pcCouleurTexel = 0.1;
 
         return objTexelsCube;
     }
