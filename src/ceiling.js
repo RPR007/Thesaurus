@@ -27,7 +27,7 @@ function creerVertexPlafond(objgl, fltLargeur, fltProfondeur) {
 function creerCouleursPlafond(objgl) {
     tabCouleurs = []; 
     for (var i = 0; i < 4; i++)
-        tabCouleurs = tabCouleurs.concat([1.0,1.0,1.0,1.0]);
+        tabCouleurs = tabCouleurs.concat([0.0,0.0,0.0,0.0]);
 
     var objCouleursPlafond = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursPlafond);
@@ -48,7 +48,7 @@ function creerTexelsPlafond(objgl, fltLargeur, fltProfondeur) {
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsPlafond);
     objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabTexels), objgl.STATIC_DRAW);
     objTexelsPlafond.intNbElems = 4; objTexelsPlafond.intTailleElem = 2;
-    objTexelsPlafond.intNoTexture = TEX_PLAFOND; objTexelsPlafond.pcCouleurTexel = 1.0;
+    objTexelsPlafond.intNoTexture = TEX_PLAFOND; objTexelsPlafond.pcCouleurTexel = 0.5;
     
     return objTexelsPlafond;
   }
