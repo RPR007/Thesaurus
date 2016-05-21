@@ -38,10 +38,10 @@ function creerCouleursPlancher(objgl) {
 
 function creerTexelsPlancher(objgl, fltLargeur, fltProfondeur) {
      var tabTexels = [
-             1.0, 0.0,  // 1: Coin haut droit
-             1.0, 1.0,  // 2: Coin bas droit
-             0.0, 1.0,  // 3: Coin bas gauche
-             0.0, 0.0,  // 4: Coin haut gauche
+             1.0, 0.0,
+             1.0, 1.0,
+             0.0, 1.0,
+             0.0, 0.0
         ];
     
     var objTexelsPlancher = objgl.createBuffer();
