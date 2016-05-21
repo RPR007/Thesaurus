@@ -9,12 +9,12 @@ function creerPlancher(objgl) {
 }
 
 function creerVertexPlancher(objgl, fltLargeur, fltProfondeur) {
-    //plancher est un carré qui couvre le niveau, donc juste 4 éléments sont nécéssaires.
+    //Plancher est un carre qui couvre le niveau, donc juste 4 elements sont necessaires.
 	var tabVertex = [
-             -fltLargeur / 2, 0.0, -fltProfondeur / 2,
-             fltLargeur / 2, 0.0, -fltProfondeur / 2,
-             -fltLargeur / 2, 0.0, fltProfondeur / 2,
-             fltLargeur / 2, 0.0, fltProfondeur / 2
+	         fltLargeur, -1.0, 0.0,
+	         fltLargeur, -1.0, fltLargeur,
+	         0.0, -1.0, fltLargeur,
+	         0.0, -1.0, 0.0
         ];
     
     var objVertexPlancher = objgl.createBuffer();
@@ -24,10 +24,10 @@ function creerVertexPlancher(objgl, fltLargeur, fltProfondeur) {
     return objVertexPlancher;
 }
 
-function creerCouleursPlancher(objgl, tabCouleur) {
+function creerCouleursPlancher(objgl) {
     tabCouleurs = []; 
     for (var i = 0; i < 4; i++)
-        tabCouleurs = tabCouleurs.concat(tabCouleur);
+        tabCouleurs = tabCouleurs.concat([1.0,1.0,1.0,1.0]);
 
     var objCouleursPlancher = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursPlancher);
@@ -38,10 +38,10 @@ function creerCouleursPlancher(objgl, tabCouleur) {
 
 function creerTexelsPlancher(objgl, fltLargeur, fltProfondeur) {
      var tabTexels = [
-             0.0, 0.0,
-             fltLargeur, 0.0,
-             0.0, fltProfondeur,
-             fltLargeur, fltProfondeur
+             1.0, 0.0,  // 1: Coin haut droit
+             1.0, 1.0,  // 2: Coin bas droit
+             0.0, 1.0,  // 3: Coin bas gauche
+             0.0, 0.0,  // 4: Coin haut gauche
         ];
     
     var objTexelsPlancher = objgl.createBuffer();
@@ -57,8 +57,8 @@ function creerMaillagePlancher(objgl) {
 
        var tabMaillage =
             [ 
-             0, 1, 2,
-             1, 2, 3,
+             1, 2, 0,
+             3, 2, 0,
             ];
 
 	    var objMaillagePlancher = objgl.createBuffer();
@@ -70,5 +70,4 @@ function creerMaillagePlancher(objgl) {
 		
         return objMaillagePlancher;
     }
-  
   
