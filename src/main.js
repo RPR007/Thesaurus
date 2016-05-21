@@ -58,8 +58,8 @@ function initScene3D(objgl) {
     
     // La caméra
     camera = creerCamera();
-    setPositionsCameraXYZ([12.5, 0, 15], camera);
-    setCiblesCameraXYZ([12.5, 0, -20], camera);
+    setPositionsCameraXYZ([12.5, 0.25, 15], camera);
+    setCiblesCameraXYZ([12.5, 0.25, -20], camera);
     
    // setPositionsCameraXYZ([12.5, 30, 15], camera);
     //setCiblesCameraXYZ([12.5, 0, 15], camera);

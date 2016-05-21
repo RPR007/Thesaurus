@@ -1,28 +1,31 @@
 function creerVertexFleche(objgl) {
     var objVertex = objgl.createBuffer();
 
+    var x = 0.0;   // Largeur
+    var y = 1.0;    //  Hauteur sur la map
+
     tabVertex = 
     [
-        -0.25, 0.0, 0.25,    //0: Avant arrière droit
-         0.25, 0.0, 0.25,    //1: Anavt arrière gauche
+        -0.1+x, 0.0+y, 0.25,    //0: Avant arrière droit
+         0.1+x, 0.0+y, 0.25,    //1: Anavt arrière gauche
 
-        -0.25,-1.0, 0.0,    //2: Milieu bas droit
-         0.25,-1.0, 0.0,    //3: Milieu bas gauche
+        -0.1+x,-0.2+y, 0.0,    //2: Milieu bas droit
+         0.1+x,-0.2+y, 0.0,    //3: Milieu bas gauche
 
-        -0.25, 1.0, 0.0,    //4: Milieu haut droit
-         0.25, 1.0, 0.0,    //5: Milieu haut gauche
+        -0.1+x, 0.2+y, 0.0,    //4: Milieu haut droit
+         0.1+x, 0.2+y, 0.0,    //5: Milieu haut gauche
 
-        -0.25,-0.5, 0.0,    //6: Milieu bas droit/2
-         0.25,-0.5, 0.0,    //7: Milieu bas gauche/2
+        -0.1+x,-0.1+y, 0.0,    //6: Milieu bas droit/2
+         0.1+x,-0.1+y, 0.0,    //7: Milieu bas gauche/2
 
-        -0.25, 0.5, 0.0,    //8: Milieu haut droit/2
-         0.25, 0.5, 0.0,    //9: Milieu haut gauche/2
+        -0.1+x, 0.1+y, 0.0,    //8: Milieu haut droit/2
+         0.1+x, 0.1+y, 0.0,    //9: Milieu haut gauche/2
 
-        -0.25,-0.5,-0.25,    //10: Arrière bas droit/2
-         0.25,-0.5,-0.25,    //11: Arrière bas gauche/2
+        -0.1+x,-0.1+y,-0.3,    //10: Arrière bas droit/2
+         0.1+x,-0.1+y,-0.3,    //11: Arrière bas gauche/2
 
-        -0.25, 0.5,-0.25,    //12: Arrière haut droit/2
-         0.25, 0.5,-0.25     //13: Arrière haut gauche/2
+        -0.1+x, 0.1+y,-0.3,    //12: Arrière haut droit/2
+         0.1+x, 0.1+y,-0.3     //13: Arrière haut gauche/2
     ];
 
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objVertex);
