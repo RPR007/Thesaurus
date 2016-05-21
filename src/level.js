@@ -57,10 +57,10 @@ function parseLevel(level) {
       
       if(node1.y == node2.y) {
             // Horizontal
-            _arrows.push({x : (node2.x -node1.x)/2, y : node1.y})
+            _arrows.push({x : node1.x+(node2.x -node1.x)/2, y : node1.y})
       } else {
           // Vertical
-           _arrows.push({x : node1.x, y :  (node2.y -node1.y)/2})
+           _arrows.push({x : node1.x, y :  node1.y+(node2.y -node1.y)/2})
       }
       
       _path.removeNode(node1)
@@ -72,7 +72,15 @@ function parseLevel(level) {
   var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
   var node1 = JSON.parse(edge.v)
   var node2 = JSON.parse(edge.w)
-  var _treasure = {x : node1.x, y :  (node2.y -node1.y)/2}
+  var _treasure = null
+  if(node1.y == node2.y) {
+            // Horizontal
+         _treasure = {x : node1.x+(node2.x -node1.x)/2, y : node1.y}
+  } else {
+          // Vertical
+          _treasure = {x : node1.x, y :  node1.y+(node2.y -node1.y)/2}
+  }
+ 
   _path.removeNode(node1)
   _path.removeNode(node2)
  
