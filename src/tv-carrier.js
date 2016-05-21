@@ -1,5 +1,4 @@
 function creerVertexTeleTransporteur(objgl, fltLargeur, fltProfondeur) {
-    //TeleTransporteur est un carre qui couvre le niveau, donc juste 4 elements sont necessaires.
 	var tabVertex = [
 	         -0.25, -1, -0.25,
 	         0.25, -1, -0.25,
