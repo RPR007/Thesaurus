@@ -3,8 +3,8 @@ function creerVertexFleche(objgl) {
 
     tabVertex = 
     [
-        -0.25, 0.0, 1.0,    //0: Avant arrière droit
-         0.25, 0.0, 1.0,    //1: Anavt arrière gauche
+        -0.25, 0.0, 0.25,    //0: Avant arrière droit
+         0.25, 0.0, 0.25,    //1: Anavt arrière gauche
 
         -0.25,-1.0, 0.0,    //2: Milieu bas droit
          0.25,-1.0, 0.0,    //3: Milieu bas gauche
@@ -18,11 +18,11 @@ function creerVertexFleche(objgl) {
         -0.25, 0.5, 0.0,    //8: Milieu haut droit/2
          0.25, 0.5, 0.0,    //9: Milieu haut gauche/2
 
-        -0.25,-0.5,-2.0,    //10: Arrière bas droit/2
-         0.25,-0.5,-2.0,    //11: Arrière bas gauche/2
+        -0.25,-0.5,-0.25,    //10: Arrière bas droit/2
+         0.25,-0.5,-0.25,    //11: Arrière bas gauche/2
 
-        -0.25, 0.5,-2.0,    //12: Arrière haut droit/2
-         0.25, 0.5,-2.0     //13: Arrière haut gauche/2
+        -0.25, 0.5,-0.25,    //12: Arrière haut droit/2
+         0.25, 0.5,-0.25     //13: Arrière haut gauche/2
     ];
 
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objVertex);
@@ -51,6 +51,42 @@ function creerCouleursVertexFleche(objgl) {
     return objCouleurs;
 }
 
+function creerTexelsFleche(objgl) {
+        var objTexelsCube = objgl.createBuffer();
+
+        tabTexels = [
+                 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0,  // 4: Coin haut gauche
+
+				 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0,  // 4: Coin haut gauche 
+                 
+                 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0,  // 4: Coin haut gauche
+
+				 1.0, 0.0,  // 1: Coin haut droit
+                 1.0, 1.0,  // 2: Coin bas droit
+                 0.0, 1.0,  // 3: Coin bas gauche
+                 0.0, 0.0  // 4: Coin haut gauche 
+        ] 
+   
+        objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsCube);
+        objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabTexels), objgl.STATIC_DRAW);
+
+        // 10 texels
+        objTexelsCube.intNbElems = 14; objTexelsCube.intTailleElem = 2;
+        // 100% de la texture est utilisée
+        objTexelsCube.intNoTexture = TEX_METAL; objTexelsCube.pcCouleurTexel = 1.00;
+
+        return objTexelsCube;
+    }
+    
 function creerMaillageVertexFleche(objgl) {
     var objMaillage = objgl.createBuffer();
    // Le maillage                        

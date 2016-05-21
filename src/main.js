@@ -10,6 +10,7 @@ var speedCameraMouse = 0.1;
 
 var level = null
 var walls = null
+var arrows = null
 
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
@@ -18,7 +19,12 @@ function demarrer() {
     
     level = parseLevel(levels[0]);
     walls = level.wall.edges();
-    
+    arrows = level.arrows
+     
+  for(i = 0; i < 18; i++) {
+      console.log(arrows[i])
+  }
+  
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
 
@@ -88,6 +94,18 @@ function objet() {
     objet3D.transformations = creerTransformations();
     tabObjets3D.push(objet3D);
         
+    // Creer les fleches
+    for(i = 0 ; i < arrows.length; i++) {
+        var objet3D = new Object();
+        objet3D.vertex = creerVertexFleche(objgl); 
+        objet3D.couleurs = creerCouleursVertexFleche(objgl);
+        objet3D.maillage = creerMaillageVertexFleche(objgl);
+        objet3D.texels = creerTexelsFleche(objgl)
+        objet3D.transformations = creerTransformations();
+        setPositionX(arrows[i].x+0.5, objet3D.transformations);
+        setPositionZ(arrows[i].y+0.5, objet3D.transformations);
+        tabObjets3D.push(objet3D);
+    }
     
     return tabObjets3D
 }
