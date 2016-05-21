@@ -13,6 +13,12 @@ var walls = null
 var arrows = null
 var treasure = null
 
+var aerial = false
+
+var cibleCameraX = null
+var cibleCameraZ = null
+var positionCamera = null
+
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
     objCanvas.focus();
@@ -54,6 +60,10 @@ function initScene3D(objgl) {
     camera = creerCamera();
     setPositionsCameraXYZ([12.5, 0, 15], camera);
     setCiblesCameraXYZ([12.5, 0, -20], camera);
+    
+   // setPositionsCameraXYZ([12.5, 30, 15], camera);
+    //setCiblesCameraXYZ([12.5, 0, 15], camera);
+    
     setOrientationsXYZ([0, 1, 0], camera);
 
     // Mettre la caméra sur la scène
@@ -75,50 +85,50 @@ function objet() {
         objet3D.transformations = creerTransformations();
         tabObjets3D.push(objet3D);
     }
-    
-    // Créer plancher
-    var objet3D = new Object();
-    objet3D.vertex = creerVertexPlancher(objgl,levels[0].length,levels[0][0]); 
-    objet3D.couleurs = creerCouleursPlancher(objgl);
-    objet3D.maillage = creerMaillagePlancher(objgl);
-    objet3D.texels = creerTexelsPlancher(objgl,levels[0].length,levels[0][0]);
-    objet3D.transformations = creerTransformations();
-    tabObjets3D.push(objet3D);
-    
-    // Créer plafond
-    var objet3D = new Object();
-    objet3D.vertex = creerVertexPlafond(objgl,levels[0].length,levels[0][0]); 
-    objet3D.couleurs = creerCouleursPlafond(objgl);
-    objet3D.maillage = creerMaillagePlafond(objgl);
-    objet3D.texels = creerTexelsPlafond(objgl,levels[0].length,levels[0][0]);
-    objet3D.transformations = creerTransformations();
-    tabObjets3D.push(objet3D);
-        
-    // Creer les fleches
-    for(i = 0 ; i < arrows.length; i++) {
+  
+    if(!aerial) {  
+        // Créer plancher
         var objet3D = new Object();
-        objet3D.vertex = creerVertexFleche(objgl); 
-        objet3D.couleurs = creerCouleursVertexFleche(objgl);
-        objet3D.maillage = creerMaillageVertexFleche(objgl);
-        objet3D.texels = creerTexelsFleche(objgl)
+        objet3D.vertex = creerVertexPlancher(objgl,levels[0].length,levels[0][0]); 
+        objet3D.couleurs = creerCouleursPlancher(objgl);
+        objet3D.maillage = creerMaillagePlancher(objgl);
+        objet3D.texels = creerTexelsPlancher(objgl,levels[0].length,levels[0][0]);
         objet3D.transformations = creerTransformations();
-        setPositionX(arrows[i].x+0.5, objet3D.transformations);
-        setPositionZ(arrows[i].y+0.5, objet3D.transformations);
+        tabObjets3D.push(objet3D);
+        
+        // Créer plafond
+        var objet3D = new Object();
+        objet3D.vertex = creerVertexPlafond(objgl,levels[0].length,levels[0][0]); 
+        objet3D.couleurs = creerCouleursPlafond(objgl);
+        objet3D.maillage = creerMaillagePlafond(objgl);
+        objet3D.texels = creerTexelsPlafond(objgl,levels[0].length,levels[0][0]);
+        objet3D.transformations = creerTransformations();
+        tabObjets3D.push(objet3D);
+            
+        // Creer les fleches
+        for(i = 0 ; i < arrows.length; i++) {
+            var objet3D = new Object();
+            objet3D.vertex = creerVertexFleche(objgl); 
+            objet3D.couleurs = creerCouleursVertexFleche(objgl);
+            objet3D.maillage = creerMaillageVertexFleche(objgl);
+            objet3D.texels = creerTexelsFleche(objgl)
+            objet3D.transformations = creerTransformations();
+            setPositionX(arrows[i].x+0.5, objet3D.transformations);
+            setPositionZ(arrows[i].y+0.5, objet3D.transformations);
+            tabObjets3D.push(objet3D);
+        }
+        
+        // Creer tresor
+        var objet3D = new Object();
+        objet3D.vertex = creerVertexTresore(objgl); 
+        objet3D.couleurs = creerCouleursTresore(objgl);
+        objet3D.maillage = creerMaillageTresore(objgl);
+        objet3D.texels = creerTexelsTresore(objgl)
+        objet3D.transformations = creerTransformations();
+        setPositionX(treasure.x+0.5, objet3D.transformations);
+        setPositionZ(treasure.y+0.5, objet3D.transformations);
         tabObjets3D.push(objet3D);
     }
-    
-    // Creer tresor
-    var objet3D = new Object();
-    objet3D.vertex = creerVertexTresore(objgl); 
-    objet3D.couleurs = creerCouleursTresore(objgl);
-    objet3D.maillage = creerMaillageTresore(objgl);
-    objet3D.texels = creerTexelsTresore(objgl)
-    objet3D.transformations = creerTransformations();
-    setPositionX(treasure.x+0.5, objet3D.transformations);
-    setPositionZ(treasure.y+0.5, objet3D.transformations);
-  //  setPositionX(treasure.x, objet3D.transformations);
-//setPositionZ(treasure.y, objet3D.transformations);
-    tabObjets3D.push(objet3D);
     
     return tabObjets3D
 }
