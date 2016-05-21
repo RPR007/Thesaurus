@@ -87,7 +87,6 @@ function bomb(wall, x, y) {
 
 function boom() {
   if(nbombs > 0) {
-    nbombs--
     
     var ux = getCibleCameraX(camera) - getPositionCameraX(camera)
     var uz =  getCibleCameraZ(camera) - getPositionCameraZ(camera)
@@ -101,13 +100,15 @@ function boom() {
       y = pz + (k*uz)
     }
   
+    console.log(walls[wall.nwall].name)
     if(x != px && y != pz
-        && Math.sqrt(Math.pow((x-px),2) + Math.pow((y-pz),2)) < 1.5)  {
+        && Math.sqrt(Math.pow((x-px),2) + Math.pow((y-pz),2)) < 1.5
+        && walls[wall.nwall].name == "destructible")  {
+      nbombs--
       // on detruit le mur
       console.log(walls[wall.nwall])
       bomb(walls[wall.nwall], x,y)
       objScene3D.tabObjets3D = objet()
-      binMovement = true
     }
 
     effacerCanevas(objgl);

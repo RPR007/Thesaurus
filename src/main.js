@@ -16,7 +16,6 @@ function demarrer() {
     objCanvas.focus();
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
     
-    console.log(levels[0].length)
     level = parseLevel(levels[0]);
     walls = level.wall.edges();
     
