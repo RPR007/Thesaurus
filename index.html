@@ -60,14 +60,7 @@
 	<script type="text/javascript" src="src/floor.js"></script>
 	<script type="text/javascript" src="src/ceiling.js"></script>
 	<script type="text/javascript" src="src/main.js"></script>
-	<script type="text/javascript">
-		function events() {
-			var canv = document.getElementById('monCanvas');
-			canv.addEventListener('keydown', keyIsPressed, false);
-			canv.addEventListener('keyup', keyIsReleased, false);
-			canv.addEventListener('click', lockPointer, false);
-		}
-	</script>
+	<script type="text/javascript" src="src/listeners.js"></script>
 </head>
 
 <body onload="events();demarrer();stopwatch();">

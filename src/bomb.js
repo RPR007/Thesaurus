@@ -84,3 +84,33 @@ function bomb(wall, x, y) {
     
     walls = level.wall.edges();
 }
+
+function boom() {
+  if(nbombs > 0) {
+    nbombs--
+    
+    var ux = getCibleCameraX(camera) - getPositionCameraX(camera)
+    var uz =  getCibleCameraZ(camera) - getPositionCameraZ(camera)
+    var px = getPositionCameraX(camera)
+    var pz = getPositionCameraZ(camera)
+    var wall = null
+    var x = px, y = pz
+
+    for(k = 0; (wall = collisionWallPrime(x,y)).collision != object.Wall; k+=0.01) {
+      x = px + (k*ux)
+      y = pz + (k*uz)
+    }
+  
+    if(x != px && y != pz
+        && Math.sqrt(Math.pow((x-px),2) + Math.pow((y-pz),2)) < 1.5)  {
+      // on detruit le mur
+      console.log(walls[wall.nwall])
+      bomb(walls[wall.nwall], x,y)
+      objScene3D.tabObjets3D = objet()
+      binMovement = true
+    }
+
+    effacerCanevas(objgl);
+    dessiner(objgl, objProgShaders, objScene3D);
+  }
+}

@@ -4,11 +4,11 @@ function stopwatch() {
         if(time2 <= time) {
             draw(time2,time)
             time2++;
-            console.log(time2)
+            //console.log(time2)
         }
     }, 1000);
     
-    console.log(objCanvas.width*(3/4))
+//    console.log(objCanvas.width*(3/4))
 }
 
 function draw(time1,time2) {

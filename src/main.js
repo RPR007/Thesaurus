@@ -2,6 +2,7 @@ var objgl = null;
 var objProgShaders = null;
 var objScene3D = null;
 var objCanvas = null;
+var camera = null;
 
 var speedWalk = 0.3;   // Change la vitesse des mouvements
 var speedCamera = 1.0;  // Change la vitesse de la vue (regarder à droite ou à gauche)
@@ -45,7 +46,7 @@ function initScene3D(objgl) {
     objScene3D.tabObjets3D = objet()
     
     // La caméra
-    var camera = creerCamera();
+    camera = creerCamera();
     setPositionsCameraXYZ([12.5, 0, 15], camera);
     setCiblesCameraXYZ([12.5, 0, -20], camera);
     setOrientationsXYZ([0, 1, 0], camera);
