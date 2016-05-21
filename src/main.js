@@ -11,6 +11,7 @@ var speedCameraMouse = 0.1;
 var level = null
 var walls = null
 var arrows = null
+var treasure = null
 
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
@@ -20,10 +21,9 @@ function demarrer() {
     level = parseLevel(levels[0]);
     walls = level.wall.edges();
     arrows = level.arrows
-     
-  for(i = 0; i < 18; i++) {
-      console.log(arrows[i])
-  }
+    treasure = level.treasure
+    
+    console.log(treasure)
   
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
@@ -106,6 +106,19 @@ function objet() {
         setPositionZ(arrows[i].y+0.5, objet3D.transformations);
         tabObjets3D.push(objet3D);
     }
+    
+    // Creer tresor
+    var objet3D = new Object();
+    objet3D.vertex = creerVertexTresore(objgl); 
+    objet3D.couleurs = creerCouleursTresore(objgl);
+    objet3D.maillage = creerMaillageTresore(objgl);
+    objet3D.texels = creerTexelsTresore(objgl)
+    objet3D.transformations = creerTransformations();
+    setPositionX(treasure.x+0.5, objet3D.transformations);
+    setPositionZ(treasure.y+0.5, objet3D.transformations);
+  //  setPositionX(treasure.x, objet3D.transformations);
+//setPositionZ(treasure.y, objet3D.transformations);
+    tabObjets3D.push(objet3D);
     
     return tabObjets3D
 }

@@ -66,10 +66,21 @@ function parseLevel(level) {
       _path.removeNode(node1)
       _path.removeNode(node2)
   }
+  
+  
+   // Le tresor
+  var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
+  var node1 = JSON.parse(edge.v)
+  var node2 = JSON.parse(edge.w)
+  var _treasure = {x : node1.x, y :  (node2.y -node1.y)/2}
+  _path.removeNode(node1)
+  _path.removeNode(node2)
  
+  
   // return { wall : groupByPrime(level,1)
    //        ,path : groupBy(level,0) }
    return { wall :  _walls,
-            arrows : _arrows }
+            arrows : _arrows,
+            treasure : _treasure}
 }
 
