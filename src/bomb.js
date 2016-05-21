@@ -3,7 +3,6 @@ function bomb(wall, x, y) {
     var node2 = wall.w
     console.log(node1)
     console.log(node2)
-    
     level.wall.removeNode(node1)
     level.wall.removeNode(node2)
     
@@ -25,7 +24,7 @@ function bomb(wall, x, y) {
            level.wall.setNode(node1,node1)
            level.wall.setNode(node2,node2)
            
-           level.wall.setEdge(node1,node2)
+           level.wall.setEdge(node1,node2,null,"destructible")
        } else {
            node1 = JSON.stringify({x : node1.x, y : node1.y+1})
            node2 = JSON.stringify(node2)
@@ -33,7 +32,7 @@ function bomb(wall, x, y) {
            level.wall.setNode(node1,node1)
            level.wall.setNode(node2,node2)
            
-           level.wall.setEdge(node1,node2)
+           level.wall.setEdge(node1,node2,null,"destructible")
        }
     } else if (node2.x == x && node2.y == y) {
        if(node1.y == node2.y) {
@@ -43,7 +42,7 @@ function bomb(wall, x, y) {
            level.wall.setNode(node1,node1)
            level.wall.setNode(node2,node2)
            
-           level.wall.setEdge(node1,node2)
+           level.wall.setEdge(node1,node2,null,"destructible")
        } else {
            node1 = JSON.stringify(node1)
            node2 = JSON.stringify({x : node2.x, y : node2.y-1})
@@ -51,7 +50,7 @@ function bomb(wall, x, y) {
            level.wall.setNode(node1,node1)
            level.wall.setNode(node2,node2)
            
-           level.wall.setEdge(node1,node2)
+           level.wall.setEdge(node1,node2,null,"destructible")
        }
     } else if(node1.y == node2.y) {
         node1 = JSON.stringify(node1)
@@ -64,8 +63,8 @@ function bomb(wall, x, y) {
         level.wall.setNode(node3,node3)
         level.wall.setNode(node4,node4)
         
-        level.wall.setEdge(node1,node3)
-        level.wall.setEdge(node2,node4)
+        level.wall.setEdge(node1,node3,null,"destructible")
+        level.wall.setEdge(node2,node4,null,"destructible")
     // Vertical
     } else {
         node1 = JSON.stringify(node1)
@@ -78,8 +77,8 @@ function bomb(wall, x, y) {
         level.wall.setNode(node3,node3)
         level.wall.setNode(node4,node4)
         
-        level.wall.setEdge(node1,node3)
-        level.wall.setEdge(node2,node4)
+        level.wall.setEdge(node1,node3,null,"destructible")
+        level.wall.setEdge(node4,node2,null,"destructible")
     }
     
     walls = level.wall.edges();
