@@ -48,7 +48,7 @@ function creerTexelsPlafond(objgl, fltLargeur, fltProfondeur) {
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsPlafond);
     objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabTexels), objgl.STATIC_DRAW);
     objTexelsPlafond.intNbElems = 4; objTexelsPlafond.intTailleElem = 2;
-    objTexelsPlafond.intNoTexture = TEX_PLAFOND; objTexelsPlafond.pcCouleurTexel = 0.5;
+    objTexelsPlafond.intNoTexture = TEX_PLAFOND; objTexelsPlafond.pcCouleurTexel = 0.7;
     
     return objTexelsPlafond;
   }
