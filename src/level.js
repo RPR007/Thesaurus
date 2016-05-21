@@ -67,6 +67,22 @@ function parseLevel(level) {
       _path.removeNode(node2)
   }
   
+  //Le tele-transporteur
+  var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
+  var node1 = JSON.parse(edge.v)
+  var node2 = JSON.parse(edge.w)
+  var _tvcarrier = null
+  if(node1.y == node2.y) {
+            // Horizontal
+         _tvcarrier = {x : node1.x+(node2.x -node1.x)/2, y : node1.y}
+  } else {
+          // Vertical
+          _tvcarrier = {x : node1.x, y :  node1.y+(node2.y -node1.y)/2}
+  }
+ 
+  _path.removeNode(node1)
+  _path.removeNode(node2)  
+  
   
    // Le tresor
   var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
@@ -89,6 +105,7 @@ function parseLevel(level) {
    //        ,path : groupBy(level,0) }
    return { wall :  _walls,
             arrows : _arrows,
-            treasure : _treasure}
+            treasure : _treasure,
+			tvcarrier : _tvcarrier}
 }
 

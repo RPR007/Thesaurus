@@ -12,6 +12,7 @@ var level = null
 var walls = null
 var arrows = null
 var treasure = null
+var tvcarrier = null
 
 var aerial = false
 
@@ -28,7 +29,8 @@ function demarrer() {
     walls = level.wall.edges();
     arrows = level.arrows
     treasure = level.treasure
-    
+    tvcarrier = level.tvcarrier;
+	
     console.log(treasure)
   
     objProgShaders = initShaders(objgl);
@@ -58,8 +60,8 @@ function initScene3D(objgl) {
     
     // La caméra
     camera = creerCamera();
-    setPositionsCameraXYZ([12.5, 0.25, 15], camera);
-    setCiblesCameraXYZ([12.5, 0.25, -20], camera);
+    setPositionsCameraXYZ([12.5, 0, 15], camera);
+    setCiblesCameraXYZ([12.5, 0, -20], camera);
     
    // setPositionsCameraXYZ([12.5, 30, 15], camera);
     //setCiblesCameraXYZ([12.5, 0, 15], camera);
@@ -118,6 +120,17 @@ function objet() {
             tabObjets3D.push(objet3D);
         }
         
+		// Creer tele-transporteur
+		var objet3D = new Object();
+        objet3D.vertex = creerVertexTeleTransporteur(objgl); 
+        objet3D.couleurs = creerCouleursTeleTransporteur(objgl);
+        objet3D.maillage = creerMaillageTeleTransporteur(objgl);
+        objet3D.texels = creerTexelsTeleTransporteur(objgl)
+        objet3D.transformations = creerTransformations();
+        setPositionX(tvcarrier.x+0.5, objet3D.transformations);
+        setPositionZ(tvcarrier.y+0.5, objet3D.transformations);
+        tabObjets3D.push(objet3D);		
+		
         // Creer tresor
         var objet3D = new Object();
         objet3D.vertex = creerVertexTresore(objgl); 

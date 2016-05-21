@@ -65,7 +65,7 @@ function creerTexelsTeleTransporteur(objgl, fltLargeur, fltProfondeur) {
 function creerMaillageTeleTransporteur(objgl) {
 		var objMaillageCube = objgl.createBuffer();
 		
-       tabMaillageCube = [
+       var tabMaillage = [
             3,2,0,
 			1,2,0,
 			7,6,4,
@@ -80,7 +80,7 @@ function creerMaillageTeleTransporteur(objgl) {
         objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, objMaillageTeleTransporteur);
         objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabMaillage), objgl.STATIC_DRAW);
 
-        objMaillageTeleTransporteur.intNbElemsTriangles = tabMaillageCube.length;
+        objMaillageTeleTransporteur.intNbElemsTriangles = tabMaillage.length;
         objMaillageTeleTransporteur.intNbElemsDroites = 0;
 		
         return objMaillageTeleTransporteur;
