@@ -47,7 +47,7 @@ function keyIsReleased(e) {
         
             setPositionsCameraXYZ([13, 22, 15], camera);
             setCiblesCameraXYZ([13, 0, 15], camera);
-            setOrientationsXYZ([0, 0, -1], camera);
+            setOrientationsXYZ([0, -1, -1], camera);
         
         }
         
