@@ -4,7 +4,17 @@ function stopwatch() {
         if(time2 <= time) {
             draw(time2,time)
             time2++;
-            //console.log(time2)
+            //console.log((time - time2)+1)
+            // Rafraichir la page si le temps est écoulé
+            if (((time-time2)+1) == 0) {
+                document.exitPointerLock = document.exitPointerLock    ||
+                                            document.mozExitPointerLock ||
+                                            document.webkitExitPointerLock;
+
+                document.exitPointerLock();
+                alert('Temps écoulé !');
+                location.reload();
+            }
         }
     }, 1000);
     

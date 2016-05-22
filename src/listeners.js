@@ -7,6 +7,12 @@ var clickState = [];
 * utilisez WASD pour vous déplacer et la souris pour regarder
 */
 
+function lockStatus() {
+	return document.pointerLockElement === objCanvas ||
+		   document.mozPointerLockElement === objCanvas ||
+		   document.webkitPointerLockElement === objCanvas;
+}
+
 function events() {
 	var canv = document.getElementById('monCanvas');
 	canv.addEventListener('keydown', keyIsPressed, false);
@@ -18,42 +24,27 @@ function events() {
 }
 
 function keyIsPressed(e) {
-	console.log('Key Code (pressed) : ' + e.keyCode);
+//	console.log('Key Code (pressed) : ' + e.keyCode);
 	keyState[e.keyCode] = true;
 }
 
 function keyIsReleased(e) {
 //	console.log('Key Code (released) : ' + event.keyCode);
     
+    // Faire exploser le mur devant nous
     if (e.keyCode == 66 || e.keyCode == 32) {
-    	console.log('bombe(s) : '+nbombs);
+    	//console.log('bombe(s) : '+nbombs);
         boom();
     }
     
+    // Entrer dans le mode aérien
     if(e.keyCode == 33 || e.keyCode == 80) {
-        
-        if(aerial) {
-            aerial = false
-            setPositionsCameraXYZ(positionCamera, camera);
-            setCibleCameraX(cibleCameraX, camera);
-            setCibleCameraZ(cibleCameraZ, camera);
-            setOrientationsXYZ([0, 1, 0], camera);
-        }  else {
-            aerial = true
-        
-            cibleCameraX = getCibleCameraX(camera)
-            cibleCameraZ = getCibleCameraZ(camera)
-            positionCamera = getPositionsXYZ(camera)
-        
-            setPositionsCameraXYZ([13, 22, 15], camera);
-            setCiblesCameraXYZ([13, 0, 15], camera);
-            setOrientationsXYZ([0, 0, -1], camera);
-        
-        }
-        
-         objScene3D.tabObjets3D = objet()
-         effacerCanevas(objgl);
-         dessiner(objgl, objProgShaders, objScene3D);
+        enterAerialMode();
+    }
+
+    // Sortir du mode aérien
+    if (e.keyCode == 34) {
+    	exitAerialMode();
     }
 	keyState[e.keyCode] = false;
 }
@@ -72,27 +63,26 @@ function clickUp(e) {
 }
 
 function lockPointer(e) {
- 	objCanvas.requestPointerLock = objCanvas.requestPointerLock ||
-								    objCanvas.mozRequestPointerLock ||
-								    objCanvas.webkitRequestPointerLock;
-	// Demander au naviguateur de bloquer la souris
-	objCanvas.requestPointerLock();
-
-	if ('onpointerlockchange' in document) {
-	  	document.addEventListener('pointerlockchange', lockChange, false);
-	} else if ('onmozpointerlockchange' in document) {
-	  	document.addEventListener('mozpointerlockchange', lockChange, false);
-	} else if ('onwebkitpointerlockchange' in document) {
-		document.addEventListener('webkitpointerlockchange', lockChange, false);
+	// Lock la souris seulement quand elle ne l'est pas
+	if (!lockStatus()) {
+	 	objCanvas.requestPointerLock = objCanvas.requestPointerLock ||
+									    objCanvas.mozRequestPointerLock ||
+									    objCanvas.webkitRequestPointerLock;
+		// Demander au naviguateur de bloquer la souris
+		objCanvas.requestPointerLock();
+	
+		if ('onpointerlockchange' in document) {
+		  	document.addEventListener('pointerlockchange', lockChange, false);
+		} else if ('onmozpointerlockchange' in document) {
+		  	document.addEventListener('mozpointerlockchange', lockChange, false);
+		} else if ('onwebkitpointerlockchange' in document) {
+			document.addEventListener('webkitpointerlockchange', lockChange, false);
+		}
 	}
 }
 
 function lockChange(e) {
-	console.log(e.which);
-	if(document.pointerLockElement === objCanvas ||
-	   document.mozPointerLockElement === objCanvas ||
-	   document.webkitPointerLockElement === objCanvas) {
-
+	if(lockStatus()) {
     	console.log('The pointer lock status is now locked');
 		objCanvas.addEventListener("mousemove", moveView, false);
   } else {
