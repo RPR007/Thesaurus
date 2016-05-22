@@ -4,8 +4,8 @@ var objScene3D = null;
 var objCanvas = null;
 var camera = null;
 
-var speedWalk = 0.3;   // Change la vitesse des mouvements
-var speedCamera = 1.0;  // Change la vitesse de la vue (regarder à droite ou à gauche)
+var speedWalk = 0.3;        // Change la vitesse des mouvements
+var speedCamera = 1.0;      // Change la vitesse de la vue (regarder à droite ou à gauche)
 var speedCameraMouse = 0.1;
 
 var level = null
@@ -14,7 +14,9 @@ var arrows = null
 var treasure = null
 var tvcarrier = null
 var tvreceiver = null
-var aerial = false
+
+var aerial = false          // Map affiché ?
+var aerialVisible = false   // Objets visibles ?
 
 var cibleCameraX = null
 var cibleCameraZ = null
@@ -175,62 +177,27 @@ function objet() {
         tabObjets3D.push(objet3D);
     } else {
         // Creer Joueur
-        var objet3D = new Object();
-        objet3D.vertex = creerVertexJoueur(objgl); 
-        objet3D.couleurs = creerCouleursJoueur(objgl);
-        objet3D.maillage = creerMaillageJoueur(objgl);
-        objet3D.texels = creerTexelsJoueur(objgl)
-        objet3D.transformations = creerTransformations();
-        setPositionX(Math.floor(positionCamera[0]), objet3D.transformations);
-        setPositionZ(Math.floor(positionCamera[2]), objet3D.transformations);
-        tabObjets3D.push(objet3D);
-        
-        // Creer tresor
-        var objet3D = new Object();
-        objet3D.vertex = creerVertexTresore(objgl); 
-        objet3D.couleurs = creerCouleursTresore(objgl);
-        objet3D.maillage = creerMaillageTresore(objgl);
-        objet3D.texels = creerTexelsTresore(objgl)
-        objet3D.transformations = creerTransformations();
-        console.log(treasure.x + ',' + (treasure.y))
-        setPositionX(treasure.x, objet3D.transformations);
-        setPositionZ(treasure.y, objet3D.transformations);
-        tabObjets3D.push(objet3D);
-        
-         // Creer les fleches
-        for(i = 0 ; i < arrows.length; i++) {
+        if (aerialVisible) {
             var objet3D = new Object();
-            objet3D.vertex = creerVertexFleche(objgl); 
-            objet3D.couleurs = creerCouleursVertexFleche(objgl);
-            objet3D.maillage = creerMaillageVertexFleche(objgl);
-            objet3D.texels = creerTexelsFleche(objgl)
+            objet3D.vertex = creerVertexJoueur(objgl); 
+            objet3D.couleurs = creerCouleursJoueur(objgl);
+            objet3D.maillage = creerMaillageJoueur(objgl);
+            objet3D.texels = creerTexelsJoueur(objgl)
             objet3D.transformations = creerTransformations();
-
-            if(treasure.y <=  arrows[i].y+0.5
-            && treasure.x >= arrows[i].x+0.5) {
-                  angle = 90
-             } else if(treasure.y <=  arrows[i].y+0.5
-                    && treasure.x <= arrows[i].x+0.5) {
-                   angle = 270
-            } else if(treasure.y >=  arrows[i].y
-                   && treasure.x <= arrows[i].x) {
-                   angle = 270
-                    // cadran 3
-            } else {
-                // cadran 4
-                  angle = 90
-            }
-               
-            setAngleY(angle,objet3D.transformations)
+            setPositionX(Math.floor(positionCamera[0]), objet3D.transformations);
+            setPositionZ(Math.floor(positionCamera[2]), objet3D.transformations);
+            tabObjets3D.push(objet3D);
             
-            if(angle == 270) {
-                setPositionX(arrows[i].x+1, objet3D.transformations);
-                setPositionZ(arrows[i].y, objet3D.transformations);
-            } else {
-                setPositionX(arrows[i].x, objet3D.transformations);
-                setPositionZ(arrows[i].y+1, objet3D.transformations);
-            }
-                
+            // Creer tresor
+            var objet3D = new Object();
+            objet3D.vertex = creerVertexTresore(objgl); 
+            objet3D.couleurs = creerCouleursTresore(objgl);
+            objet3D.maillage = creerMaillageTresore(objgl);
+            objet3D.texels = creerTexelsTresore(objgl)
+            objet3D.transformations = creerTransformations();
+            console.log(treasure.x + ',' + (treasure.y))
+            setPositionX(treasure.x, objet3D.transformations);
+            setPositionZ(treasure.y, objet3D.transformations);
             tabObjets3D.push(objet3D);
         }
         
@@ -255,6 +222,45 @@ function objet() {
         setPositionX(tvreceiver.x, objet3D.transformations);
         setPositionZ(tvreceiver.y, objet3D.transformations);
         tabObjets3D.push(objet3D);
+   }
+            
+     /*        // Creer les fleches
+            for(i = 0 ; i < arrows.length; i++) {
+                var objet3D = new Object();
+                objet3D.vertex = creerVertexFleche(objgl); 
+                objet3D.couleurs = creerCouleursVertexFleche(objgl);
+                objet3D.maillage = creerMaillageVertexFleche(objgl);
+                objet3D.texels = creerTexelsFleche(objgl)
+                objet3D.transformations = creerTransformations();
+    
+                if(treasure.y <=  arrows[i].y+0.5
+                && treasure.x >= arrows[i].x+0.5) {
+                      angle = 90
+                 } else if(treasure.y <=  arrows[i].y+0.5
+                        && treasure.x <= arrows[i].x+0.5) {
+                       angle = 270
+                } else if(treasure.y >=  arrows[i].y
+                       && treasure.x <= arrows[i].x) {
+                       angle = 270
+                        // cadran 3
+                } else {
+                    // cadran 4
+                      angle = 90
+                }
+                   
+                setAngleY(angle,objet3D.transformations)
+                
+                if(angle == 270) {
+                    setPositionX(arrows[i].x+1, objet3D.transformations);
+                    setPositionZ(arrows[i].y, objet3D.transformations);
+                } else {
+                    setPositionX(arrows[i].x, objet3D.transformations);
+                    setPositionZ(arrows[i].y+1, objet3D.transformations);
+                }
+                    
+                tabObjets3D.push(objet3D);
+                } 
+            } */
     }
     
     return tabObjets3D
