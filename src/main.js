@@ -20,6 +20,7 @@ var cibleCameraX = null
 var cibleCameraZ = null
 var positionCamera = null
 
+
 function demarrer() {
     objCanvas = document.getElementById('monCanvas');
     objCanvas.focus();
@@ -43,7 +44,7 @@ function demarrer() {
     }, 200);
    
     // Dessiner avant la loop
-    //dessiner(objgl, objProgShaders, objScene3D);
+    dessiner(objgl, objProgShaders, objScene3D);
 
     // Pour des raisons d'optimisation, la loop ne dessine quand le joueur bouge
     cameraLoop();
@@ -62,12 +63,9 @@ function initScene3D(objgl) {
     camera = creerCamera();
     setPositionsCameraXYZ([12.5, 0, 15], camera);
     setCiblesCameraXYZ([12.5, 0, -20], camera);
-    
-   // setPositionsCameraXYZ([12.5, 30, 15], camera);
-    //setCiblesCameraXYZ([12.5, 0, 15], camera);
-    
     setOrientationsXYZ([0, 1, 0], camera);
 
+    
     // Mettre la caméra sur la scène
     objScene3D.camera = camera;
 			
@@ -107,7 +105,7 @@ function objet() {
         objet3D.transformations = creerTransformations();
         tabObjets3D.push(objet3D);
             
-        // Creer les fleches
+          // Creer les fleches
         for(i = 0 ; i < arrows.length; i++) {
             var objet3D = new Object();
             objet3D.vertex = creerVertexFleche(objgl); 
@@ -115,37 +113,34 @@ function objet() {
             objet3D.maillage = creerMaillageVertexFleche(objgl);
             objet3D.texels = creerTexelsFleche(objgl)
             objet3D.transformations = creerTransformations();
-            setPositionX(arrows[i].x+0.5, objet3D.transformations);
-            setPositionZ(arrows[i].y+0.5, objet3D.transformations);
-            angle = 0
-            if(treasure.y+0.5 <=  arrows[i].y+0.5
-            && treasure.x+0.5 >= arrows[i].x+0.5) {
-                   // cadran 1
-                   coteOpose =  arrows[i].y+0.5 - treasure.y+0.5
-                   coteAjacent = treasure.x+0.5 - arrows[i].x+0.5
-                   angle = 90 + ((180/Math.PI) * Math.atan(coteOpose/coteAjacent))
-             } else if(treasure.y+0.5 <=  arrows[i].y+0.5
-                    && treasure.x+0.5 <= arrows[i].x+0.5) {
-                   // cadran 2
-                   coteOpose = arrows[i].y+0.5 -treasure.y+0.5
-                   coteAjacent = arrows[i].x+0.5 -treasure.x+0.5
-                   angle =   270 - ((180/Math.PI) * Math.atan(coteOpose/coteAjacent))
-                     
-            } else if(treasure.y+0.5 >=  arrows[i].y+0.5
-                   && treasure.x+0.5 <= arrows[i].x+0.5) {
-                   coteOpose = treasure.y+0.5 - arrows[i].y+0.5
-                   coteAjacent = arrows[i].x+0.5 - treasure.x+0.5
+
+            if(treasure.y <=  arrows[i].y+0.5
+            && treasure.x >= arrows[i].x+0.5) {
+                  angle = 90
+             } else if(treasure.y <=  arrows[i].y+0.5
+                    && treasure.x <= arrows[i].x+0.5) {
+                   angle = 270
+            } else if(treasure.y >=  arrows[i].y
+                   && treasure.x <= arrows[i].x) {
+                   angle = 270
                     // cadran 3
             } else {
                 // cadran 4
-                  coteOpose = treasure.y+0.5 - arrows[i].y+0.5
-                  coteAjacent = treasure.x+0.5 - arrows[i].x+0.5
-                  angle =  ((180/Math.PI) * Math.atan(coteOpose/coteAjacent)) 
+                  angle = 90
             }
                
             setAngleY(angle,objet3D.transformations)
+            
+            if(angle == 270) {
+                setPositionX(arrows[i].x+1, objet3D.transformations);
+                setPositionZ(arrows[i].y, objet3D.transformations);
+            } else {
+                setPositionX(arrows[i].x, objet3D.transformations);
+                setPositionZ(arrows[i].y+1, objet3D.transformations);
+            }
+                
             tabObjets3D.push(objet3D);
-        }
+        } 
         
 		// Creer tele-transporteur
 		var objet3D = new Object();
@@ -166,9 +161,69 @@ function objet() {
         objet3D.maillage = creerMaillageTresore(objgl);
         objet3D.texels = creerTexelsTresore(objgl)
         objet3D.transformations = creerTransformations();
-        setPositionX(treasure.x+0.5, objet3D.transformations);
-        setPositionZ(treasure.y+0.5, objet3D.transformations);
+        setPositionX(treasure.x, objet3D.transformations);
+        setPositionZ(treasure.y, objet3D.transformations);
         tabObjets3D.push(objet3D);
+    } else {
+        // Creer Joueur
+        var objet3D = new Object();
+        objet3D.vertex = creerVertexJoueur(objgl); 
+        objet3D.couleurs = creerCouleursJoueur(objgl);
+        objet3D.maillage = creerMaillageJoueur(objgl);
+        objet3D.texels = creerTexelsJoueur(objgl)
+        objet3D.transformations = creerTransformations();
+        setPositionX(Math.floor(positionCamera[0]), objet3D.transformations);
+        setPositionZ(Math.floor(positionCamera[2]), objet3D.transformations);
+        tabObjets3D.push(objet3D);
+        
+        // Creer tresor
+        var objet3D = new Object();
+        objet3D.vertex = creerVertexTresore(objgl); 
+        objet3D.couleurs = creerCouleursTresore(objgl);
+        objet3D.maillage = creerMaillageTresore(objgl);
+        objet3D.texels = creerTexelsTresore(objgl)
+        objet3D.transformations = creerTransformations();
+        console.log(treasure.x + ',' + (treasure.y))
+        setPositionX(treasure.x, objet3D.transformations);
+        setPositionZ(treasure.y, objet3D.transformations);
+        tabObjets3D.push(objet3D);
+        
+         // Creer les fleches
+        for(i = 0 ; i < arrows.length; i++) {
+            var objet3D = new Object();
+            objet3D.vertex = creerVertexFleche(objgl); 
+            objet3D.couleurs = creerCouleursVertexFleche(objgl);
+            objet3D.maillage = creerMaillageVertexFleche(objgl);
+            objet3D.texels = creerTexelsFleche(objgl)
+            objet3D.transformations = creerTransformations();
+
+            if(treasure.y <=  arrows[i].y+0.5
+            && treasure.x >= arrows[i].x+0.5) {
+                  angle = 90
+             } else if(treasure.y <=  arrows[i].y+0.5
+                    && treasure.x <= arrows[i].x+0.5) {
+                   angle = 270
+            } else if(treasure.y >=  arrows[i].y
+                   && treasure.x <= arrows[i].x) {
+                   angle = 270
+                    // cadran 3
+            } else {
+                // cadran 4
+                  angle = 90
+            }
+               
+            setAngleY(angle,objet3D.transformations)
+            
+            if(angle == 270) {
+                setPositionX(arrows[i].x+1, objet3D.transformations);
+                setPositionZ(arrows[i].y, objet3D.transformations);
+            } else {
+                setPositionX(arrows[i].x, objet3D.transformations);
+                setPositionZ(arrows[i].y+1, objet3D.transformations);
+            }
+                
+            tabObjets3D.push(objet3D);
+        } 
     }
     
     return tabObjets3D

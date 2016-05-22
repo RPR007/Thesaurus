@@ -36,10 +36,10 @@ function creerMur(objgl,wall) {
             } else {
                 tabVertex = [
                 // Haut
-                node2.x+1, height,node2.y, // 12 Haut Droit
-                node2.x+1,height,node2.y+1, // 13 Bas Droit
-                node1.x,height,node1.y+1, // 14 Bas Gauche
-                node1.x, height,node1.y, // 15 Haut Gauche
+                node2.x+1, 0.0,node2.y, // 12 Haut Droit
+                node2.x+1,0.0,node2.y+1, // 13 Bas Droit
+                node1.x,0.0,node1.y+1, // 14 Bas Gauche
+                node1.x, 0.0,node1.y, // 15 Haut Gauche
                 ]
             }
         } else {
@@ -72,10 +72,10 @@ function creerMur(objgl,wall) {
             ]
             } else {
                  tabVertex = [
-                node2.x, 2.0,node2.y+1, // 12 Haut Droit
-                node2.x+1,2.0,node2.y+1, // 13 Bas Droit
-                node1.x+1,2.0,node1.y, // 14 Bas Gauche
-                node1.x, 2.0,node1.y, // 15 Haut Gauche
+                node2.x, 0.0,node2.y+1, // 12 Haut Droit
+                node2.x+1,0.0,node2.y+1, // 13 Bas Droit
+                node1.x+1,0.0,node1.y, // 14 Bas Gauche
+                node1.x, 0.0,node1.y, // 15 Haut Gauche
                 ]
             }
         }
@@ -90,13 +90,13 @@ function creerMur(objgl,wall) {
     function creerCouleursMur(objgl) {
         var objCouleursCube = objgl.createBuffer();
 
-        if(!aerial) {
         tabCouleurs = []
-        for(var i = 0; i< 16;i++)
-          tabCouleurs = tabCouleurs.concat([0.0, 0.0, 0.0, 1.0]);
+        if(!aerial) {
+            for(var i = 0; i< 16;i++)
+                tabCouleurs = tabCouleurs.concat([0.0, 0.0, 0.0, 1.0]);
         } else {
             for(var i = 0; i< 4;i++)
-          tabCouleurs = tabCouleurs.concat([0.0, 0.0, 0.0, 1.0]);
+                tabCouleurs = tabCouleurs.concat([0.0, 0.0, 0.0, 1.0]);
         }
         
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursCube);
