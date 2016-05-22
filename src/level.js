@@ -1,6 +1,6 @@
 // ------ niveau 1 ----//
 
-var levels = [
+var maps = [
 [[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
 [2,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2],
 [2,0,1,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,1,0,2],
@@ -35,19 +35,19 @@ var levels = [
 ];
 
 // Mettre le niveau en graphe de coordonées
-function parseLevel(level) {
+function parseLevel(map) {
   // Le Chemin
-  var _path =  groupByPrime(level,0)
+  var _path =  groupByPrime(map,0)
   
   // Les murs
-  var walls_destructible = groupByPrime(level,1,"destructible")
-  var walls_indestructible = groupByPrime(level,2,"indestructible")
+  var walls_destructible = groupByPrime(map,1,"destructible")
+  var walls_indestructible = groupByPrime(map,2,"indestructible")
   var _walls = appendEdgeGraph(walls_destructible.edges(), walls_indestructible.edges())
   
   
   // Les fleches
   var _arrows = new Array()
-  for(var i = 0; i < 18; i++) {
+  for(var i = 0; i < narrows; i++) {
       var path_edges = _path.edges()
       
       var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
@@ -67,33 +67,47 @@ function parseLevel(level) {
       _path.removeNode(node2)
   }
   
-  //Le tele-transporteur
-  var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
-  var node1 = JSON.parse(edge.v)
-  var node2 = JSON.parse(edge.w)
-  var _tvcarrier = null
-  if(node1.y == node2.y) {
+  var _tvcarriers = new Array()
+  for(var i = 0; i < ntvcarrier; i++) {
+      var path_edges = _path.edges()
+      
+      var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
+      
+      var node1 = JSON.parse(edge.v)
+      var node2 = JSON.parse(edge.w)
+      
+      if(node1.y == node2.y) {
             // Horizontal
-         _tvcarrier = {x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y}
-  } else {
+            _tvcarriers.push({x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y})
+      } else {
           // Vertical
-          _tvcarrier = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
+           _tvcarriers.push({x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)})
+      }
+      
+      _path.removeNode(node1)
+      _path.removeNode(node2)
   }
- 
-  _path.removeNode(node1)
-  _path.removeNode(node2)  
   
-  //Le tele-recepteur
-  var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
-  var node1 = JSON.parse(edge.v)
-  var node2 = JSON.parse(edge.w)
-  var _tvreceiver = null
-  if(node1.y == node2.y) {
+  
+  var _tvreceivers = new Array()
+  for(var i = 0; i < ntvreceiver; i++) {
+      var path_edges = _path.edges()
+      
+      var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
+      
+      var node1 = JSON.parse(edge.v)
+      var node2 = JSON.parse(edge.w)
+      
+      if(node1.y == node2.y) {
             // Horizontal
-         _tvreceiver = {x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y}
-  } else {
+            _tvreceivers.push({x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y})
+      } else {
           // Vertical
-          _tvreceiver = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
+           _tvreceivers.push({x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)})
+      }
+      
+      _path.removeNode(node1)
+      _path.removeNode(node2)
   }
  
   _path.removeNode(node1)
@@ -112,8 +126,6 @@ function parseLevel(level) {
           _treasure = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
   }
   
-  console.log("tresor : " + _treasure.x + ',' + _treasure.y )
- 
   _path.removeNode(node1)
   _path.removeNode(node2)
  
@@ -121,7 +133,7 @@ function parseLevel(level) {
    return { wall :  _walls,
             arrows : _arrows,
             treasure : _treasure,
-			tvcarrier : _tvcarrier,
-            tvreceiver : _tvreceiver }
+			tvcarriers : _tvcarriers,
+            tvreceivers : _tvreceivers}
 }
 

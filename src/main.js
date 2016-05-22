@@ -28,12 +28,12 @@ function demarrer() {
     objCanvas.focus();
     objgl = initWebGL(objCanvas);  // Initialise le contexte WebGL
     
-    level = parseLevel(levels[0]);
+    level = parseLevel(maps[0]);
     walls = level.wall.edges();
     arrows = level.arrows
     treasure = level.treasure
-    tvcarrier = level.tvcarrier;
-    tvreceiver = level.tvreceiver;
+    tvcarrier = level.tvcarriers;
+    tvreceiver = level.tvreceivers;
   
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
@@ -90,19 +90,19 @@ function objet() {
     if(!aerial) {  
         // Créer plancher
         var objet3D = new Object();
-        objet3D.vertex = creerVertexPlancher(objgl,levels[0].length,levels[0][0]); 
+        objet3D.vertex = creerVertexPlancher(objgl,maps[0].length,maps[0][0]); 
         objet3D.couleurs = creerCouleursPlancher(objgl);
         objet3D.maillage = creerMaillagePlancher(objgl);
-        objet3D.texels = creerTexelsPlancher(objgl,levels[0].length,levels[0][0]);
+        objet3D.texels = creerTexelsPlancher(objgl,maps[0].length,maps[0][0]);
         objet3D.transformations = creerTransformations();
         tabObjets3D.push(objet3D);
         
         // Créer plafond
         var objet3D = new Object();
-        objet3D.vertex = creerVertexPlafond(objgl,levels[0].length,levels[0][0]); 
+        objet3D.vertex = creerVertexPlafond(objgl,maps[0].length,maps[0][0]); 
         objet3D.couleurs = creerCouleursPlafond(objgl);
         objet3D.maillage = creerMaillagePlafond(objgl);
-        objet3D.texels = creerTexelsPlafond(objgl,levels[0].length,levels[0][0]);
+        objet3D.texels = creerTexelsPlafond(objgl,maps[0].length,maps[0][0]);
         objet3D.transformations = creerTransformations();
         tabObjets3D.push(objet3D);
             
@@ -144,26 +144,30 @@ function objet() {
         }
          
 		// Creer tele-transporteur
-		var objet3D = new Object();
-        objet3D.vertex = creerVertexTeleTransporteur(objgl); 
-        objet3D.couleurs = creerCouleursTeleTransporteur(objgl);
-        objet3D.maillage = creerMaillageTeleTransporteur(objgl);
-        objet3D.texels = creerTexelsTeleTransporteur(objgl)
-        objet3D.transformations = creerTransformations();
-        setPositionX(tvcarrier.x, objet3D.transformations);
-        setPositionZ(tvcarrier.y, objet3D.transformations);
-        tabObjets3D.push(objet3D);
+        for(i = 0 ; i < tvcarrier.length; i++) {
+    		var objet3D = new Object();
+            objet3D.vertex = creerVertexTeleTransporteur(objgl); 
+            objet3D.couleurs = creerCouleursTeleTransporteur(objgl);
+            objet3D.maillage = creerMaillageTeleTransporteur(objgl);
+            objet3D.texels = creerTexelsTeleTransporteur(objgl)
+            objet3D.transformations = creerTransformations();
+            setPositionX(tvcarrier[i].x, objet3D.transformations);
+            setPositionZ(tvcarrier[i].y, objet3D.transformations);
+            tabObjets3D.push(objet3D);
+        }
         
         // Creer tele-recpteur
-		var objet3D = new Object();
-        objet3D.vertex = creerVertexTeleRecepteur(objgl); 
-        objet3D.couleurs = creerCouleursTeleRecepteur(objgl);
-        objet3D.maillage = creerMaillageTeleRecepteur(objgl);
-        objet3D.texels = creerTexelsTeleRecpteur(objgl)
-        objet3D.transformations = creerTransformations();
-        setPositionX(tvreceiver.x, objet3D.transformations);
-        setPositionZ(tvreceiver.y, objet3D.transformations);
-        tabObjets3D.push(objet3D);
+        for(i = 0 ; i < tvreceiver.length; i++) {
+    		var objet3D = new Object();
+            objet3D.vertex = creerVertexTeleRecepteur(objgl); 
+            objet3D.couleurs = creerCouleursTeleRecepteur(objgl);
+            objet3D.maillage = creerMaillageTeleRecepteur(objgl);
+            objet3D.texels = creerTexelsTeleRecepteur(objgl)
+            objet3D.transformations = creerTransformations();
+            setPositionX(tvreceiver[i].x, objet3D.transformations);
+            setPositionZ(tvreceiver[i].y, objet3D.transformations);
+            tabObjets3D.push(objet3D);
+        }
 		
         // Creer tresor
         var objet3D = new Object();
@@ -237,27 +241,31 @@ function objet() {
                 tabObjets3D.push(objet3D);
             }
         
-            // Creer tele-transporteur
+            	// Creer tele-transporteur
+        for(i = 0 ; i < tvcarrier.length; i++) {
     		var objet3D = new Object();
             objet3D.vertex = creerVertexTeleTransporteur(objgl); 
             objet3D.couleurs = creerCouleursTeleTransporteur(objgl);
             objet3D.maillage = creerMaillageTeleTransporteur(objgl);
             objet3D.texels = creerTexelsTeleTransporteur(objgl)
             objet3D.transformations = creerTransformations();
-            setPositionX(tvcarrier.x, objet3D.transformations);
-            setPositionZ(tvcarrier.y, objet3D.transformations);
+            setPositionX(tvcarrier[i].x, objet3D.transformations);
+            setPositionZ(tvcarrier[i].y, objet3D.transformations);
             tabObjets3D.push(objet3D);
-            
-            // Creer tele-recpteur
+        }
+        
+        // Creer tele-recpteur
+        for(i = 0 ; i < tvreceiver.length; i++) {
     		var objet3D = new Object();
             objet3D.vertex = creerVertexTeleRecepteur(objgl); 
             objet3D.couleurs = creerCouleursTeleRecepteur(objgl);
             objet3D.maillage = creerMaillageTeleRecepteur(objgl);
-            objet3D.texels = creerTexelsTeleRecpteur(objgl)
+            objet3D.texels = creerTexelsTeleRecepteur(objgl)
             objet3D.transformations = creerTransformations();
-            setPositionX(tvreceiver.x, objet3D.transformations);
-            setPositionZ(tvreceiver.y, objet3D.transformations);
+            setPositionX(tvreceiver[i].x, objet3D.transformations);
+            setPositionZ(tvreceiver[i].y, objet3D.transformations);
             tabObjets3D.push(objet3D);
+        }
         }
     }
 
