@@ -1,15 +1,20 @@
 function creerVertexTeleTransporteur(objgl, fltLargeur, fltProfondeur) {
-	var tabVertex = [
-	         -0.25, -1, -0.25,
-	         0.25, -1, -0.25,
-	         0.25, -1, 0.25,
-	         -0.25, -1, 0.25,
-			 
-			 -0.25, 0.25, 0.25,
-	         -0.25, 0.25, -0.25,
-	         0.25, 0.25, -0.25,
-	         0.25, 0.25, 0.25
-        ];
+    if(!aerial) {
+        var tabVertex = [0.5,-0.9,0.5] // Le centre du cercle;
+           for (var i = 0; i <= 360; i++) {
+             tabVertex = tabVertex.concat([0.5+Math.cos(i*Math.PI/180)*0.5,-0.9,0.5+Math.sin(i*Math.PI/180)*0.5]);
+         }
+    
+         tabVertex = tabVertex.concat([0.5,height-1,0.5]) // Le centre du cercle;
+           for (var i = 0; i <= 360; i++) {
+             tabVertex = tabVertex.concat([0.5+Math.cos(i*Math.PI/180)*0.5,height-1.5,0.5+Math.sin(i*Math.PI/180)*0.5]);
+         }
+    } else {
+       var tabVertex = [0.5,0,0.5] // Le centre du cercle;
+       for (var i = 0; i <= 360; i++) {
+         tabVertex = tabVertex.concat([0.5+Math.cos(i*Math.PI/180)*0.5,-0.9,Math.sin(i*Math.PI/180)*0.5]);
+       }
+    }
     
     var objVertexTeleTransporteur = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objVertexTeleTransporteur);
@@ -20,28 +25,32 @@ function creerVertexTeleTransporteur(objgl, fltLargeur, fltProfondeur) {
 
 function creerCouleursTeleTransporteur(objgl) {
     tabCouleurs = []; 
-    for (var i = 0; i < 8; i++)
+    for (var i = 0; i <= 361; i++)
         tabCouleurs = tabCouleurs.concat([1.0,0.0,0.0,0.0]);
-
+        
+    if(!aerial) {
+        for (var i = 0; i <= 361; i++)
+            tabCouleurs = tabCouleurs.concat([1.0,0.0,0.0,0.0]);
+    }
+    
     var objCouleursTeleTransporteur = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursTeleTransporteur);
     objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabCouleurs), objgl.STATIC_DRAW);
-    objCouleursTeleTransporteur.intNbElems = 8; objCouleursTeleTransporteur.intTailleElem = 4;
+    objCouleursTeleTransporteur.intNbElems = tabCouleurs.length; objCouleursTeleTransporteur.intTailleElem = 4;
     return objCouleursTeleTransporteur;
 }
 
 function creerTexelsTeleTransporteur(objgl, fltLargeur, fltProfondeur) {
-     var tabTexels = [
-                 1.0, 0.0,  // 1: Coin haut droit
-                 1.0, 1.0,  // 2: Coin bas droit
-                 0.0, 1.0,  // 3: Coin bas gauche
-                 0.0, 0.0,  // 4: Coin haut gauche
-
-				 1.0, 0.0,  // 1: Coin haut droit
-                 1.0, 1.0,  // 2: Coin bas droit
-                 0.0, 1.0,  // 3: Coin bas gauche
-                 0.0, 0.0  // 4: Coin haut gauche 
-        ];
+     var tabTexels = [] // Le centre du cercle;
+       for (var i = 0; i <= 361; i++) {
+         tabTexels = tabTexels.concat([0.0,0.0]);
+     }
+     
+     if(!aerial) {
+        for (var i = 0; i <= 361; i++) {
+            tabTexels = tabTexels.concat([0.0,0.0]);
+        }
+     }
     
     var objTexelsTeleTransporteur = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, objTexelsTeleTransporteur);
@@ -55,13 +64,17 @@ function creerTexelsTeleTransporteur(objgl, fltLargeur, fltProfondeur) {
 function creerMaillageTeleTransporteur(objgl) {
 		var objMaillageCube = objgl.createBuffer();
 		
-       var tabMaillage = [
-            3,2,0,
-			1,2,0,
-			7,6,4,
-			5,6,4
-        ];
-
+		var tabMaillage = []
+		for(var i = 1; i <= 360; i++)  {
+		    tabMaillage = tabMaillage.concat([0,i,i+1]);
+		}
+		
+		if(!aerial) {
+		    for(var i = 362; i <= 360*2+2; i++)  {
+		        tabMaillage = tabMaillage.concat([362,i,i+1]);
+		    }
+		}
+		
 	    var objMaillageTeleTransporteur = objgl.createBuffer();
         objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, objMaillageTeleTransporteur);
         objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabMaillage), objgl.STATIC_DRAW);

@@ -57,10 +57,10 @@ function parseLevel(level) {
       
       if(node1.y == node2.y) {
             // Horizontal
-            _arrows.push({x : node1.x+(node2.x -node1.x)/2, y : node1.y})
+            _arrows.push({x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y})
       } else {
           // Vertical
-           _arrows.push({x : node1.x, y :  node1.y+(node2.y -node1.y)/2})
+           _arrows.push({x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)})
       }
       
       _path.removeNode(node1)
@@ -74,15 +74,30 @@ function parseLevel(level) {
   var _tvcarrier = null
   if(node1.y == node2.y) {
             // Horizontal
-         _tvcarrier = {x : node1.x+(node2.x -node1.x)/2, y : node1.y}
+         _tvcarrier = {x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y}
   } else {
           // Vertical
-          _tvcarrier = {x : node1.x, y :  node1.y+(node2.y -node1.y)/2}
+          _tvcarrier = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
   }
  
   _path.removeNode(node1)
   _path.removeNode(node2)  
   
+  //Le tele-recepteur
+  var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
+  var node1 = JSON.parse(edge.v)
+  var node2 = JSON.parse(edge.w)
+  var _tvreceiver = null
+  if(node1.y == node2.y) {
+            // Horizontal
+         _tvreceiver = {x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y}
+  } else {
+          // Vertical
+          _tvreceiver = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
+  }
+ 
+  _path.removeNode(node1)
+  _path.removeNode(node2)  
   
    // Le tresor
   var edge = path_edges[Math.floor((Math.random() * path_edges.length))]
@@ -91,21 +106,22 @@ function parseLevel(level) {
   var _treasure = null
   if(node1.y == node2.y) {
             // Horizontal
-         _treasure = {x : node1.x+(node2.x -node1.x)/2, y : node1.y}
+         _treasure = {x : Math.floor(node1.x+(node2.x -node1.x)/2), y : node1.y}
   } else {
           // Vertical
-          _treasure = {x : node1.x, y :  node1.y+(node2.y -node1.y)/2}
+          _treasure = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
   }
+  
+  console.log("tresor : " + _treasure.x + ',' + _treasure.y )
  
   _path.removeNode(node1)
   _path.removeNode(node2)
  
   
-  // return { wall : groupByPrime(level,1)
-   //        ,path : groupBy(level,0) }
    return { wall :  _walls,
             arrows : _arrows,
             treasure : _treasure,
-			tvcarrier : _tvcarrier}
+			tvcarrier : _tvcarrier,
+            tvreceiver : _tvreceiver }
 }
 
