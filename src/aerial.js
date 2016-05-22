@@ -27,6 +27,13 @@ function exitAerialMode() {
 	}
 }
 
+function visibleAerialObjects() {
+	if (aerial) {
+		aerialVisible = !aerialVisible;
+		drawMap();
+	}
+}
+
 function drawMap() {
 	objScene3D.tabObjets3D = objet();
     effacerCanevas(objgl);

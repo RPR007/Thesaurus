@@ -25,19 +25,14 @@ function events() {
 
 function keyIsPressed(e) {
 //	console.log('Key Code (pressed) : ' + e.keyCode);
-	keyState[e.keyCode] = true;
-}
 
-function keyIsReleased(e) {
-//	console.log('Key Code (released) : ' + event.keyCode);
-    
-    // Faire exploser le mur devant nous
-    if (e.keyCode == 66 || e.keyCode == 32) {
-    	//console.log('bombe(s) : '+nbombs);
+	// Faire exploser le mur devant nous (b ou espace)
+    if (e.keyCode == 66 || e.keyCode == 32 && !aerial) {
+    	console.log('bombe(s) : '+nbombs);
         boom();
     }
     
-    // Entrer dans le mode aérien
+    // Entrer dans le mode aérien (page up)
     if(e.keyCode == 33 || e.keyCode == 80) {
 <<<<<<< HEAD
         
@@ -67,11 +62,24 @@ function keyIsReleased(e) {
         enterAerialMode();
     }
 
-    // Sortir du mode aérien
+    // Sortir du mode aérien (page down)
     if (e.keyCode == 34) {
     	exitAerialMode();
 >>>>>>> 4a2f31eb708bcdbd6d027ddf0fa55024af974fda
     }
+
+    // Afficher ou pas les objets cachés sur la map (CTRL+SHIFT+Espace)
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 32) {
+    	visibleAerialObjects();
+    }
+
+	keyState[e.keyCode] = true;
+}
+
+function keyIsReleased(e) {
+//	console.log('Key Code (released) : ' + event.keyCode);
+    
+    
 	keyState[e.keyCode] = false;
 }
 
