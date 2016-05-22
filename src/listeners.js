@@ -34,38 +34,12 @@ function keyIsPressed(e) {
     
     // Entrer dans le mode aérien (page up)
     if(e.keyCode == 33 || e.keyCode == 80) {
-<<<<<<< HEAD
-        
-        if(aerial) {
-            aerial = false
-            setPositionsCameraXYZ(positionCamera, camera);
-            setCibleCameraX(cibleCameraX, camera);
-            setCibleCameraZ(cibleCameraZ, camera);
-            setOrientationsXYZ([0, 1, 0], camera);
-        }  else {
-            aerial = true
-        
-            cibleCameraX = getCibleCameraX(camera)
-            cibleCameraZ = getCibleCameraZ(camera)
-            positionCamera = getPositionsXYZ(camera)
-        
-            setPositionsCameraXYZ([13, 22, 15], camera);
-            setCiblesCameraXYZ([13, 0, 15], camera);
-            setOrientationsXYZ([0, -1, -1], camera);
-        
-        }
-        
-         objScene3D.tabObjets3D = objet()
-         effacerCanevas(objgl);
-         dessiner(objgl, objProgShaders, objScene3D);
-=======
         enterAerialMode();
     }
 
     // Sortir du mode aérien (page down)
     if (e.keyCode == 34) {
     	exitAerialMode();
->>>>>>> 4a2f31eb708bcdbd6d027ddf0fa55024af974fda
     }
 
     // Afficher ou pas les objets cachés sur la map (CTRL+SHIFT+Espace)
