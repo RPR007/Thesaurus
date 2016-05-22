@@ -1,11 +1,33 @@
 object = {
     Nothing : 0,
-    Wall : 1
+    Wall : 1,
+    TvCarrier : 2,
+    TvReceiver : 3,
+    Treasure : 4
 }
 
 function collision(x,  y) {
-    _collisionWall = collisionWall(x,y)
-    return _collisionWall.collision
+    var collision = object.Nothing
+    
+    for(var i = 1; collision == object.Nothing  && i < 5; i++) {
+        switch(i) {
+            case object.Wall :
+                collision = collisionWall(x,y).collision
+                break;
+            case object.TvCarrier :
+                collision = collisionTvCarrier(x,y)
+                break;
+            case object.TvReceiver :
+                collision = collisionTvReceiver(x,y)
+                break;
+            case object.Treasure :
+                collision = collisionTresor(x,y)
+                break;
+                
+        }
+    }
+    
+    return collision
 }
 
 function collisionWall(x,y) {
@@ -37,6 +59,56 @@ function collisionWall(x,y) {
     i--
     
     return { collision : collision, nwall : i } 
+}
+
+function collisionTvCarrier(x,y) {
+    var collision = object.Nothing
+    var i
+    
+    for(i = 0; collision == object.Nothing && i < tvcarrier.length; i++) {
+            if(x >= tvcarrier[i].x
+              && x <= tvcarrier[i].x+1
+              && y >= tvcarrier[i].y
+              && y <= tvcarrier[i].y+1)
+                collision = object.TvCarrier
+    }
+    
+    i--
+    if(collision == object.tvcarrier) {
+        console.log("collision teletransporteur")
+        
+    }
+    
+    return collision
+}
+
+function collisionTvReceiver(x,y) {
+    var collision = object.Nothing
+    var i
+    
+    for(i = 0; collision == object.Nothing && i < tvreceiver.length; i++) {
+            if(x >= tvreceiver[i].x
+              && x <= tvreceiver[i].x+1
+              && y >= tvreceiver[i].y
+              && y <= tvreceiver[i].y+1)
+                collision = object.TvReceiver
+    }
+    
+    i--
+    
+    return collision
+}
+
+function collisionTresor(x,y) {
+    var collision = object.Nothing
+    
+    if(x >= treasure.x
+    && x <= treasure.x+1
+    && y >= treasure.y
+    && y <= treasure.y+1)
+        collision = object.Treasure
+    
+    return collision
 }
 
 function collisionWallPrime(x,y) {

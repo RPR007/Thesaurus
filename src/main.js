@@ -51,6 +51,23 @@ function demarrer() {
     cameraLoop();
 }
 
+function game(move, x,y) {
+    var _collision = collision(x,y)
+    
+    switch (_collision) {
+        case object.Nothing:
+            move()
+            break;
+        case object.TvCarrier :
+            break;
+        case object.Treasure :
+            console.log("WIN !!!")
+            break;
+        default:
+            break;
+    }
+}
+
 function initScene3D(objgl) {
     var objScene3D = new Object();
     

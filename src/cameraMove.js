@@ -21,12 +21,14 @@ function moveForwardBackward(intDirection) {
     var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltX / fltRayon));
     var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltZ / fltRayon));
 
-    if(collision(getPositionCameraX(camera) + fltXPrime,  getPositionCameraZ(camera) + fltZPrime) != object.Wall) {
+    
+    game(function() {
         setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
         setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
         setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
         setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
-    }
+    },getPositionCameraX(camera) + fltXPrime, getPositionCameraZ(camera) + fltZPrime)
+  
 }
 
 function lookRightLeft(intDirection) {
@@ -73,12 +75,12 @@ function cameraLoop() {
             var fltXPrime = (intDirection*speedWalk) * 0.2 * Math.cos(Math.acos(fltZ / fltRayon));
             var fltZPrime = (intDirection*speedWalk) * 0.2 * Math.sin(Math.asin(fltX / -fltRayon));
     
-            if(collision(getPositionCameraX(camera) + fltXPrime,  getPositionCameraZ(camera) + fltZPrime) != object.Wall) {
+            game(function() {
                 setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
                 setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
                 setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
                 setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
-            }
+            },getPositionCameraX(camera) + fltXPrime, getPositionCameraZ(camera) + fltZPrime)
         }
     
         // Permet de ne pas réafficher si il n'y en a pas besoins
