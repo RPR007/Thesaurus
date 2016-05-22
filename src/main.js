@@ -30,7 +30,7 @@ function demarrer() {
     arrows = level.arrows
     treasure = level.treasure
     tvcarrier = level.tvcarrier;
-	
+	console.log(tvcarrier)
     console.log(treasure)
   
     objProgShaders = initShaders(objgl);
@@ -117,6 +117,33 @@ function objet() {
             objet3D.transformations = creerTransformations();
             setPositionX(arrows[i].x+0.5, objet3D.transformations);
             setPositionZ(arrows[i].y+0.5, objet3D.transformations);
+            angle = 0
+            if(treasure.y+0.5 <=  arrows[i].y+0.5
+            && treasure.x+0.5 >= arrows[i].x+0.5) {
+                   // cadran 1
+                   coteOpose =  arrows[i].y+0.5 - treasure.y+0.5
+                   coteAjacent = treasure.x+0.5 - arrows[i].x+0.5
+                   angle = 90 + ((180/Math.PI) * Math.atan(coteOpose/coteAjacent))
+             } else if(treasure.y+0.5 <=  arrows[i].y+0.5
+                    && treasure.x+0.5 <= arrows[i].x+0.5) {
+                   // cadran 2
+                   coteOpose = arrows[i].y+0.5 -treasure.y+0.5
+                   coteAjacent = arrows[i].x+0.5 -treasure.x+0.5
+                   angle =   270 - ((180/Math.PI) * Math.atan(coteOpose/coteAjacent))
+                     
+            } else if(treasure.y+0.5 >=  arrows[i].y+0.5
+                   && treasure.x+0.5 <= arrows[i].x+0.5) {
+                   coteOpose = treasure.y+0.5 - arrows[i].y+0.5
+                   coteAjacent = arrows[i].x+0.5 - treasure.x+0.5
+                    // cadran 3
+            } else {
+                // cadran 4
+                  coteOpose = treasure.y+0.5 - arrows[i].y+0.5
+                  coteAjacent = treasure.x+0.5 - arrows[i].x+0.5
+                  angle =  ((180/Math.PI) * Math.atan(coteOpose/coteAjacent)) 
+            }
+               
+            setAngleY(angle,objet3D.transformations)
             tabObjets3D.push(objet3D);
         }
         
@@ -129,7 +156,8 @@ function objet() {
         objet3D.transformations = creerTransformations();
         setPositionX(tvcarrier.x+0.5, objet3D.transformations);
         setPositionZ(tvcarrier.y+0.5, objet3D.transformations);
-        tabObjets3D.push(objet3D);		
+        setPositionY(0.5, objet3D.transformations);
+        tabObjets3D.push(objet3D);
 		
         // Creer tresor
         var objet3D = new Object();
