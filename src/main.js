@@ -43,7 +43,7 @@ function demarrer() {
     }, 200);
    
     // Dessiner avant la loop
-    dessiner(objgl, objProgShaders, objScene3D);
+    //dessiner(objgl, objProgShaders, objScene3D);
 
     // Pour des raisons d'optimisation, la loop ne dessine quand le joueur bouge
     cameraLoop();

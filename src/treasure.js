@@ -96,13 +96,13 @@ function creerVertexTresore(objgl) {
         tabMaillageCube =
             [ // Les 4 triangles de la face avant
              3,2,0,
-			 1,2,0,
-			 7,6,4,
-			 5,6,4,
-			 11,8,10,
-			 9,10,8,
-			 13,14,12,
-			 15,14,12
+      			 1,2,0,
+      			 7,6,4,
+      			 5,6,4,
+      			 11,8,10,
+      			 9,10,8,
+      			 13,14,12,
+      			 15,14,12
             
             ];
 
