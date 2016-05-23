@@ -75,6 +75,20 @@ function game(move, x,y) {
             break;
         case object.Treasure :
             console.log("WIN !!!")
+            
+            if(nlevel < 10) {
+                if(level+1 % 2 == 0) {
+                    nbombs--;
+                } else {
+                    ntvcarrier
+                }
+                
+                ntvreceiver++
+                narrows-=2
+                nlevel++
+                
+                demarrer()
+            }
             break;
         default:
             break;
