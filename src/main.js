@@ -59,6 +59,19 @@ function game(move, x,y) {
             move()
             break;
         case object.TvCarrier :
+            var _tvreceiver = null
+            if(tvreceiver.length > 1) {
+                _tvreceiver = tvreceiver[Math.floor((Math.random() * tvreceiver.length))]
+            } else {
+                _tvreceiver = tvreceiver[0]
+            }
+            
+            setPositionCameraX(_tvreceiver.x+0.5, camera);
+            setPositionCameraZ(_tvreceiver.y+0.5, camera);
+            
+            break;
+        case object.TvReceiver :
+            move()
             break;
         case object.Treasure :
             console.log("WIN !!!")
