@@ -106,7 +106,7 @@ function boom() {
       nbombs--
       // on detruit le mur
       console.log(walls[wall.nwall])
-      bomb(walls[wall.nwall], x,y)
+      bomb(walls[wall.nwall], x,y);
       objScene3D.tabObjets3D = objet()
     }
 
