@@ -1,5 +1,6 @@
 var keyState = [];
 var clickState = [];
+var int_aerien
 
 /*
 * Pour bouger utilisez soit les flêches (avancer, reculer, regarder à droite et à gauche)
@@ -25,7 +26,7 @@ function events() {
 
 function keyIsPressed(e) {
 //	console.log('Key Code (pressed) : ' + e.keyCode);
-
+    
 	// Faire exploser le mur devant nous (b ou espace)
     if (e.keyCode == 66 || e.keyCode == 32 && !aerial) {
     	console.log('bombe(s) : '+nbombs);
@@ -35,13 +36,33 @@ function keyIsPressed(e) {
     // Entrer dans le mode aérien (page up)
     if(e.keyCode == 33 || e.keyCode == 80) {
         enterAerialMode();
+        int_aerien = setInterval(function(){
+            score-=10
+            if(score < 0)
+                score = 0
+            refreshScore()
+        }, 1000);
+        
     }
 
     // Sortir du mode aérien (page down)
-    if (e.keyCode == 34) {
+    if (e.keyCode == 34 || e.keyCode == 69) {
+        console.log(int_aerien)
+        clearInterval(int_aerien)
     	exitAerialMode();
     }
 
+    // restart
+    if (e.keyCode == 82) {
+       score-=200
+            if(score < 0)
+                score = 0
+       refreshScore()
+       setPositionsCameraXYZ([player.x+0.5, 0, player.y+0.5], camera);
+       effacerCanevas(objgl); 
+       dessiner(objgl, objProgShaders, objScene3D);
+    }
+    
     // Afficher ou pas les objets cachés sur la map (CTRL+SHIFT+Espace)
     if (e.ctrlKey && e.shiftKey && e.keyCode == 32) {
     	visibleAerialObjects();

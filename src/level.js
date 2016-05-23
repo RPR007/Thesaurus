@@ -16,7 +16,7 @@ var maps = [
 [2,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,2],
 [2,0,0,0,0,1,0,1,1,1,0,2,2,0,2,2,0,1,1,1,0,1,0,0,0,0,2],
 [2,0,1,1,1,1,0,1,0,1,0,2,0,0,0,2,0,1,0,1,0,1,1,1,1,0,2],
-[2,0,0,0,0,0,0,1,0,1,0,2,0,0,0,2,0,1,0,1,0,0,0,0,0,0,2],
+[2,0,0,0,0,0,0,1,0,1,0,2,0,3,0,2,0,1,0,1,0,0,0,0,0,0,2],
 [2,1,1,1,1,1,0,1,0,1,0,2,0,0,0,2,0,1,0,1,0,1,1,1,1,1,2],
 [2,0,0,0,0,0,0,1,0,1,0,2,2,2,2,2,0,1,0,1,0,0,0,0,0,0,2],
 [2,0,1,1,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,0,2],
@@ -88,7 +88,6 @@ function parseLevel(map) {
       _path.removeNode(node2)
   }
   
-  
   var _tvreceivers = new Array()
   for(var i = 0; i < ntvreceiver; i++) {
       var path_edges = _path.edges()
@@ -108,7 +107,8 @@ function parseLevel(map) {
       
       _path.removeNode(node1)
       _path.removeNode(node2)
-  }
+  } 
+ 
  
   _path.removeNode(node1)
   _path.removeNode(node2)  
@@ -125,15 +125,20 @@ function parseLevel(map) {
           // Vertical
           _treasure = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
   }
-  
-  _path.removeNode(node1)
-  _path.removeNode(node2)
  
-  
+  _player = null 
+  for(var i = 0; i < map.length; i++) {
+      for(var j = 0;j < map[0].length; j++)
+        if(map[i][j] == 3)
+            _player = {x : j, y : i}
+            
+  }
    return { wall :  _walls,
             arrows : _arrows,
             treasure : _treasure,
 			tvcarriers : _tvcarriers,
-            tvreceivers : _tvreceivers}
+            tvreceivers : _tvreceivers,
+            player : _player
+   }
 }
 

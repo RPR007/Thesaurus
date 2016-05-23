@@ -14,6 +14,7 @@ var arrows = null
 var treasure = null
 var tvcarrier = null
 var tvreceiver = null
+var player = null
 
 var aerial = false          // Map affiché ?
 var aerialVisible = false   // Objets visibles ?
@@ -34,7 +35,10 @@ function demarrer() {
     treasure = level.treasure
     tvcarrier = level.tvcarriers;
     tvreceiver = level.tvreceivers;
-  
+    player  = level.player;
+    
+    refreshScore()
+    
     objProgShaders = initShaders(objgl);
     objScene3D = initScene3D(objgl); // Créer la scène
 
@@ -47,6 +51,7 @@ function demarrer() {
     // Dessiner avant la loop
     dessiner(objgl, objProgShaders, objScene3D);
 
+    
     // Pour des raisons d'optimisation, la loop ne dessine quand le joueur bouge
     cameraLoop();
 }
@@ -95,6 +100,10 @@ function game(move, x,y) {
     }
 }
 
+function refreshScore() {
+    document.getElementById('score').innerHTML = 'Score : ' + score
+}
+
 function initScene3D(objgl) {
     var objScene3D = new Object();
     
@@ -106,8 +115,8 @@ function initScene3D(objgl) {
     
     // La caméra
     camera = creerCamera();
-    setPositionsCameraXYZ([12.5, 0, 15], camera);
-    setCiblesCameraXYZ([12.5, 0, -20], camera);
+    setPositionsCameraXYZ([player.x+0.5, 0, player.y+0.5], camera);
+    setCiblesCameraXYZ([player.x+0.5, 0, -20], camera);
     setOrientationsXYZ([0, 1, 0], camera);
 
     

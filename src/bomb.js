@@ -14,7 +14,6 @@ function bomb(wall, x, y) {
     
     if(node1.y == node2.y && node1.x == node2.x) {
         // on fait rien
-        console.log("adfasdfasdf")
     // Horizontal    
     } else if(node1.x == x && node1.y == y) {
        if(node1.y == node2.y) {
@@ -104,6 +103,12 @@ function boom() {
         && Math.sqrt(Math.pow((x-px),2) + Math.pow((y-pz),2)) < 1.5
         && walls[wall.nwall].name == "destructible")  {
       nbombs--
+      
+      score -= 100
+      if(score < 0)
+        score = 0
+      refreshScore()
+      
       // on detruit le mur
       console.log(walls[wall.nwall])
       bomb(walls[wall.nwall], x,y)
