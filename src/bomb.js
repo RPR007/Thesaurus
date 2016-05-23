@@ -85,7 +85,13 @@ function bomb(wall, x, y) {
 
 function boom() {
   if(nbombs > 0) {
-    
+    nbombs--
+      
+    score -= 100
+    if(score < 0)
+        score = 0
+      refreshScore()
+      
     var ux = getCibleCameraX(camera) - getPositionCameraX(camera)
     var uz =  getCibleCameraZ(camera) - getPositionCameraZ(camera)
     var px = getPositionCameraX(camera)
@@ -102,16 +108,10 @@ function boom() {
     if(x != px && y != pz
         && Math.sqrt(Math.pow((x-px),2) + Math.pow((y-pz),2)) < 1.5
         && walls[wall.nwall].name == "destructible")  {
-      nbombs--
-      
-      score -= 100
-      if(score < 0)
-        score = 0
-      refreshScore()
       
       // on detruit le mur
       console.log(walls[wall.nwall])
-    //  sounds.bomb.play()
+      sounds.bomb.play()
       bomb(walls[wall.nwall], x,y);
       objScene3D.tabObjets3D = objet()
     }

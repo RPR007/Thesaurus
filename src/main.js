@@ -37,6 +37,7 @@ function demarrer() {
     tvreceiver = level.tvreceivers;
     player  = level.player;
     
+    initSounds()
     refreshScore()
     
     objProgShaders = initShaders(objgl);
@@ -47,7 +48,7 @@ function demarrer() {
          effacerCanevas(objgl); 
          dessiner(objgl, objProgShaders, objScene3D);
          
-     //    sounds.initLevel.play()
+         sounds.initLevel.play()
     }, 200);
    
     // Dessiner avant la loop
@@ -67,22 +68,24 @@ function game(move, x,y) {
             break;
         case object.TvCarrier :
             var _tvreceiver = null
-            if(tvreceiver.length > 1) {
-                _tvreceiver = tvreceiver[Math.floor((Math.random() * tvreceiver.length))]
-            } else {
-                _tvreceiver = tvreceiver[0]
+            
+            if(_tvreceiver.length > 0) {
+                if(tvreceiver.length > 1) {
+                    _tvreceiver = tvreceiver[Math.floor((Math.random() * tvreceiver.length))]
+                } else {
+                    _tvreceiver = tvreceiver[0]
+                }
+                
+                setPositionCameraX(_tvreceiver.x+0.5, camera);
+                setPositionCameraZ(_tvreceiver.y+0.5, camera);
+                sounds.teleport.play()
             }
-            
-            setPositionCameraX(_tvreceiver.x+0.5, camera);
-            setPositionCameraZ(_tvreceiver.y+0.5, camera);
-            
-           // sounds.teleport.play()
             break;
         case object.TvReceiver :
             move()
             break;
         case object.Arrow :
-       //     sounds.arrow.play()
+            sounds.arrow.play()
             console.log("Arrow")
             move()
             break;
@@ -105,7 +108,7 @@ function game(move, x,y) {
                 
                 demarrer()
             } else {
-             //   sounds.finish.play()
+                sounds.finish.play()
             }
             break;
         default:

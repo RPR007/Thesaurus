@@ -12,7 +12,7 @@ function stopwatch() {
                                             document.webkitExitPointerLock;
 
                 document.exitPointerLock();
-             //   sounds.timeOut.play()
+                sounds.timeOut.play()
                 alert('Temps écoulé !');
                 location.reload();
             }
