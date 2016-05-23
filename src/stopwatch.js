@@ -13,8 +13,11 @@ function stopwatch() {
 
                 document.exitPointerLock();
                 sounds.timeOut.play()
+                score-=200
+                if(score < 0)
+                    score = 0
+                refreshScore()
                 setPositionsCameraXYZ([player.x+0.5, 0, player.y+0.5], camera);
-                alert('Temps écoulé !');
             }
         }
     }, 1000);

@@ -39,6 +39,27 @@ function parseLevel(map) {
   // Le Chemin
   var _path =  groupByPrime(map,0)
   
+  
+  // Le joueurs
+   _player = null 
+  for(var i = 0; i < map.length; i++) {
+      for(var j = 0;j < map[0].length; j++)
+        if(map[i][j] == 3)
+            _player = {x : j, y : i}
+            
+  }
+  
+  // supression du spaw
+  _path.removeNode(JSON.stringify({x:_player.x-1,y:_player.y-1}))
+  _path.removeNode(JSON.stringify({x:_player.x-1,y:_player.y}))
+  _path.removeNode(JSON.stringify({x:_player.x-1,y:_player.y+1}))
+   _path.removeNode(JSON.stringify({x:_player.x,y:_player.y-1}))
+  _path.removeNode(JSON.stringify({x:_player.x,y:_player.y}))
+  _path.removeNode(JSON.stringify({x:_player.x,y:_player.y+1}))
+  _path.removeNode(JSON.stringify({x:_player.x+1,y:_player.y-1}))
+  _path.removeNode(JSON.stringify({x:_player.x+1,y:_player.y}))
+  _path.removeNode(JSON.stringify({x:_player.x+1,y:_player.y+1}))
+  
   // Les murs
   var walls_destructible = groupByPrime(map,1,"destructible")
   var walls_indestructible = groupByPrime(map,2,"indestructible")
@@ -126,13 +147,6 @@ function parseLevel(map) {
           _treasure = {x : node1.x, y :  Math.floor(node1.y+(node2.y -node1.y)/2)}
   }
  
-  _player = null 
-  for(var i = 0; i < map.length; i++) {
-      for(var j = 0;j < map[0].length; j++)
-        if(map[i][j] == 3)
-            _player = {x : j, y : i}
-            
-  }
    return { wall :  _walls,
             arrows : _arrows,
             treasure : _treasure,
