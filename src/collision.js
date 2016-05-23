@@ -81,7 +81,7 @@ function collisionTvCarrier(x,y) {
 }
 
 function collisionArrow(x,y) {
-    var collision = object.Arrow
+    var collision = object.Nothing
     var i
     
     for(i = 0; collision == object.Nothing && i < arrows.length; i++) {
