@@ -8,7 +8,7 @@ var TEX_PLAFOND= 1;
 function creerTextures(objgl) {
 
     // il faut ajouter l'image plancher.jpg sur github
-    var tabImages = ['img/Transparent.gif', 'img/plancher.jpg'];
+    var tabImages = ['img/Transparent.gif', 'img/Brick.jpg'];
     //var tabImages = ['img/Transparent.gif', 'img/metal.jpg'];
     
 	var tabObjTextures = new Array();

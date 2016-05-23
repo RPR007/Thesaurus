@@ -86,7 +86,7 @@ function game(move, x,y) {
             break;
         case object.Arrow :
             sounds.arrow.play()
-            console.log("Arrow")
+            //console.log("Arrow")
             move()
             break;
         case object.Treasure :
