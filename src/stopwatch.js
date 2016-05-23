@@ -18,11 +18,10 @@ function stopwatch() {
                     score = 0
                 refreshScore()
                 setPositionsCameraXYZ([player.x+0.5, 0, player.y+0.5], camera);
+                time2=0
             }
         }
     }, 1000);
-    
-//    console.log(objCanvas.width*(3/4))
 }
 
 function draw(time1,time2) {

@@ -21,7 +21,7 @@ function creerVertexJoueur(objgl) {
 
         tabCouleurs = []
         for(var i = 0; i< 4;i++)
-          tabCouleurs = tabCouleurs.concat([1.0, 0.0, 0.0, 1.0]);
+          tabCouleurs = tabCouleurs.concat([0.0, 1.0, 0.0, 1.0]);
 
         objgl.bindBuffer(objgl.ARRAY_BUFFER, objCouleursCube);
         objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(tabCouleurs), objgl.STATIC_DRAW);
