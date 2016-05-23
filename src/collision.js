@@ -3,13 +3,14 @@ object = {
     Wall : 1,
     TvCarrier : 2,
     TvReceiver : 3,
-    Treasure : 4
+    Treasure : 4,
+    Arrow : 5
 }
 
 function collision(x,  y) {
     var collision = object.Nothing
     
-    for(var i = 1; collision == object.Nothing  && i < 5; i++) {
+    for(var i = 1; collision == object.Nothing  && i < 6; i++) {
         switch(i) {
             case object.Wall :
                 collision = collisionWall(x,y).collision
@@ -22,6 +23,9 @@ function collision(x,  y) {
                 break;
             case object.Treasure :
                 collision = collisionTresor(x,y)
+                break;
+            case object.Arrow :
+                collision = collisionArrow(x,y)
                 break;
                 
         }
@@ -73,14 +77,25 @@ function collisionTvCarrier(x,y) {
                 collision = object.TvCarrier
     }
     
-    i--
-    if(collision == object.tvcarrier) {
-        console.log("collision teletransporteur")
-        
+    return collision
+}
+
+function collisionArrow(x,y) {
+    var collision = object.Arrow
+    var i
+    
+    for(i = 0; collision == object.Nothing && i < arrows.length; i++) {
+            if(x >= arrows[i].x
+              && x <= arrows[i].x+1
+              && y >= arrows[i].y
+              && y <= arrows[i].y+1)
+                collision = object.Arrow
     }
+
     
     return collision
 }
+
 
 function collisionTvReceiver(x,y) {
     var collision = object.Nothing

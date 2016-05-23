@@ -111,6 +111,7 @@ function boom() {
       
       // on detruit le mur
       console.log(walls[wall.nwall])
+    //  sounds.bomb.play()
       bomb(walls[wall.nwall], x,y);
       objScene3D.tabObjets3D = objet()
     }

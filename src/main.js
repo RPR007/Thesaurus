@@ -46,6 +46,8 @@ function demarrer() {
     setTimeout(function() {
          effacerCanevas(objgl); 
          dessiner(objgl, objProgShaders, objScene3D);
+         
+     //    sounds.initLevel.play()
     }, 200);
    
     // Dessiner avant la loop
@@ -74,14 +76,23 @@ function game(move, x,y) {
             setPositionCameraX(_tvreceiver.x+0.5, camera);
             setPositionCameraZ(_tvreceiver.y+0.5, camera);
             
+           // sounds.teleport.play()
             break;
         case object.TvReceiver :
+            move()
+            break;
+        case object.Arrow :
+       //     sounds.arrow.play()
+            console.log("Arrow")
             move()
             break;
         case object.Treasure :
             console.log("WIN !!!")
             
             if(nlevel < 10) {
+                
+                sounds.treasure.play()
+            
                 if(level+1 % 2 == 0) {
                     nbombs--;
                 } else {
@@ -93,6 +104,8 @@ function game(move, x,y) {
                 nlevel++
                 
                 demarrer()
+            } else {
+             //   sounds.finish.play()
             }
             break;
         default:
